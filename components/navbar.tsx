@@ -5,7 +5,7 @@ import { useData } from "../contexts/dataContext";
 
 function Navbar() {
   const router = useRouter();
-  const { account, connect, isMember, isStakeholder } = useData();
+  // const { account, connect, isMember, isStakeholder } = useData();
 
   return (
     <>
@@ -17,16 +17,16 @@ function Navbar() {
                 FundingDAO
               </span>
             </Link>
-            <span className="text-xs bg-blue-500 text-white rounded-lg py-1 px-1 font-bold ml-2">
+            {/* <span className="text-xs bg-blue-500 text-white rounded-lg py-1 px-1 font-bold ml-2">
               {!isMember && !isStakeholder
                 ? "Not a Member"
                 : isStakeholder
                 ? "Stakeholder"
                 : "Member"}
-            </span>
+            </span> */}
           </div>
 
-          {account ? (
+          {/* {account ? (
             <div className="bg-green-500 px-6 py-2 rounded-md cursor-pointer">
               <span className="text-lg text-white">
                 {account.substr(0, 10)}...
@@ -41,33 +41,33 @@ function Navbar() {
             >
               <span className="text-lg text-white">Connect</span>
             </div>
-          )}
+          )} */}
         </div>
       </nav>
       <nav className="w-full h-16 m-auto max-w-5xl flex justify-center">
         <div className="flex flex-row justify-between items-center h-full">
-          {account && (
+          {true && (
             <div className="flex flex-row items-center justify-center h-full">
               <TabButton
                 title="Home"
                 isActive={router.asPath === "/"}
                 url={"/"}
               />
-              {isMember && (
+              {true && (
                 <TabButton
                   title="Create Proposal"
                   isActive={router.asPath === "/create-proposal"}
                   url={"/create-proposal"}
                 />
               )}
-              {isMember && (
+              {true && (
                 <TabButton
                   title="Stakeholder Lounge"
                   isActive={router.asPath === "/stakeholder-lounge"}
                   url={"/stakeholder-lounge "}
                 />
               )}
-              {isStakeholder && (
+              {true && (
                 <TabButton
                   title="Investments"
                   isActive={router.asPath === "/investments"}

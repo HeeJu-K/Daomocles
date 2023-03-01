@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { useData } from "../contexts/dataContext";
+// import { useData } from "../contexts/dataContext";
 
 interface Props {
   isOpen: boolean;
@@ -17,7 +17,7 @@ export const AddFundsModal: React.FC<Props> = ({
   fundingRequired,
   fundingRaised,
 }) => {
-  const { provideFunds } = useData();
+  // const { provideFunds } = useData();
   const [amount, setAmount] = useState("");
   return (
     <>
@@ -89,11 +89,11 @@ export const AddFundsModal: React.FC<Props> = ({
                     <button
                       type="button"
                       className="inline-flex justify-center px-10 py-2 text-sm font text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 font-bold"
-                      onClick={async () => {
-                        await provideFunds(id, amount);
-                        setAmount("");
-                        closeModal();
-                      }}
+                      // onClick={async () => {
+                      //   await provideFunds(id, amount);
+                      //   setAmount("");
+                      //   closeModal();
+                      // }}
                     >
                       Pay
                     </button>

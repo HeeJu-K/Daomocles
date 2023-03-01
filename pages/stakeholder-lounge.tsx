@@ -1,29 +1,29 @@
 import Head from "next/head";
 import { useState } from "react";
 import Navbar from "../components/navbar";
-import { useData } from "../contexts/dataContext";
+// import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const { loading, account, createStakeholder, currentBal } = useData();
+  // const { loading, account, createStakeholder, currentBal } = useData();
   const [val, setVal] = useState("");
 
-  if (loading) {
-    return (
-      <div className="h-screen w-screen flex justify-center items-center">
-        <div className="text-2xl font-bold text-gray-500">Loading...</div>
-      </div>
-    );
-  }
-  if (!account) {
-    return (
-      <div className="h-screen w-screen flex justify-center items-center">
-        <div className="text-2xl font-bold text-gray-500">
-          Please connect Metamask Wallet
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="h-screen w-screen flex justify-center items-center">
+  //       <div className="text-2xl font-bold text-gray-500">Loading...</div>
+  //     </div>
+  //   );
+  // }
+  // if (!account) {
+  //   return (
+  //     <div className="h-screen w-screen flex justify-center items-center">
+  //       <div className="text-2xl font-bold text-gray-500">
+  //         Please connect Metamask Wallet
+  //       </div>
+  //     </div>
+  //   );
+  // }
   return (
     <div className={styles.container}>
       <Head>
@@ -38,7 +38,7 @@ export default function Home() {
             <p className="my-2">
               Current Balance :{" "}
               <span className="text-lg font-bold text-blue-600">
-                {currentBal} MATIC
+                {/* {currentBal} MATIC */}
               </span>
             </p>
             <input
@@ -52,11 +52,11 @@ export default function Home() {
             />
             <button
               className="px-3 py-2 rounded-xl bg-blue-600 text-white"
-              onClick={() => {
-                createStakeholder(val).then(() => {
-                  setVal("");
-                });
-              }}
+              // onClick={() => {
+              //   createStakeholder(val).then(() => {
+              //     setVal("");
+              //   });
+              // }}
             >
               Send
             </button>

@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { FormEvent, useState } from "react";
 import Navbar from "../components/navbar";
-import { ProposalList } from "../components/proposalList";
-import { useData } from "../contexts/dataContext";
+// import { ProposalList } from "../components/proposalList";
+// import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
-  const { createProposal } = useData();
+  // const { createProposal } = useData();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,13 +26,13 @@ export default function Home() {
       var data = await res.json();
       id = data.id;
     }
-    await createProposal({
-      title,
-      description,
-      amount,
-      recipient,
-      imageId: id ?? "",
-    });
+    // await createProposal({
+    //   title,
+    //   description,
+    //   amount,
+    //   recipient,
+    //   imageId: id ?? "",
+    // });
     setTitle("");
     setDescription("");
     setAmount("");
@@ -40,8 +40,8 @@ export default function Home() {
     setImage(null);
   };
 
-  const { isMember, isStakeholder, loading } = useData();
-  if (loading) return <div>Loading...</div>;
+  // const { isMember, isStakeholder, loading } = useData();
+  // if (loading) return <div>Loading...</div>;
   return (
     <div className={styles.container}>
       <Head>
@@ -50,7 +50,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {isMember && (
+      {/* {isMember && ( */}
+      {true && (
         <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center">
           <div className="w-3/4 border-2 border-blue-600 rounded-xl p-3 mt-10">
             <div className="flex flex-col justify-center">
