@@ -1,108 +1,107 @@
-// declare let window: any;
-// import {
-//   createContext,
-//   useCallback,
-//   useContext,
-//   useEffect,
-//   useState,
-// } from "react";
-// import { toast } from "react-toastify";
-// import Web3 from "web3";
-// import FundingDAO from "../abis/FundingDAO.json";
-// import { Proposal } from "../utils/interface";
+declare let window: any;
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { toast } from "react-toastify";
+import Web3 from "web3";
 
-// interface DataContextProps {
-//   account: string;
-//   loading: boolean;
-//   connect: () => Promise<void>;
-//   fundingDao: any;
-//   allProposals: Proposal[];
-//   isStakeholder: boolean;
-//   isMember: boolean;
-//   currentBal: string;
-//   allVotes: string[];
-//   allInvestedProposal: Proposal[];
-//   createStakeholder: (amount: string) => Promise<void>;
-//   provideFunds: (id: string, amount: string) => Promise<void>;
-//   getProposal: (id: string) => Promise<Proposal>;
-//   vote: (id: string, vote: boolean) => Promise<void>;
-//   releaseFunding: (id: string) => Promise<void>;
-//   createProposal: ({
-//     title,
-//     description,
-//     amount,
-//     recipient,
-//     imageId,
-//   }: {
-//     title: string;
-//     description: string;
-//     amount: string;
-//     recipient: string;
-//     imageId: string;
-//   }) => Promise<void>;
-// }
+interface DataContextProps {
+  account: string;
+  loading: boolean;
+  connect: () => Promise<void>;
+  // fundingDao: any;
+  // allProposals: Proposal[];
+  // isStakeholder: boolean;
+  // isMember: boolean;
+  // currentBal: string;
+  // allVotes: string[];
+  // allInvestedProposal: Proposal[];
+  // createStakeholder: (amount: string) => Promise<void>;
+  // provideFunds: (id: string, amount: string) => Promise<void>;
+  // getProposal: (id: string) => Promise<Proposal>;
+  // vote: (id: string, vote: boolean) => Promise<void>;
+  // releaseFunding: (id: string) => Promise<void>;
+  // createProposal: ({
+  //   title,
+  //   description,
+  //   amount,
+  //   recipient,
+  //   imageId,
+  // }: {
+  //   title: string;
+  //   description: string;
+  //   amount: string;
+  //   recipient: string;
+  //   imageId: string;
+  // }) => Promise<void>;
+}
 
-// const DataContext = createContext<DataContextProps>({
-//   account: "",
-//   loading: true,
-//   connect: async () => {},
-//   fundingDao: null,
-//   allProposals: [],
-//   isStakeholder: false,
-//   isMember: false,
-//   currentBal: "",
-//   allVotes: [],
-//   allInvestedProposal: [],
-//   createStakeholder: async (val) => {},
-//   provideFunds: async (id, amount) => {},
-//   createProposal: async () => {},
-//   vote: async () => {},
-//   releaseFunding: async () => {},
-//   getProposal: async (val) => {
-//     return {} as Proposal;
-//   },
-// });
+const DataContext = createContext<DataContextProps>({
+  account: "",
+  loading: true,
+  connect: async () => {},
+  // fundingDao: null,
+  // allProposals: [],
+  // isStakeholder: false,
+  // isMember: false,
+  // currentBal: "",
+  // allVotes: [],
+  // allInvestedProposal: [],
+  // createStakeholder: async (val) => {},
+  // provideFunds: async (id, amount) => {},
+  // createProposal: async () => {},
+  // vote: async () => {},
+  // releaseFunding: async () => {},
+  // getProposal: async (val) => {
+  //   return {} as Proposal;
+  // },
+});
 
-// export const DataProvider: React.FC = ({ children }) => {
-//   const data = useProviderData();
+export const DataProvider: React.FC = ({ children }) => {
+  const data = useProviderData();
 
-//   return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
-// };
+  return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
+};
 
-// export const useData = () => useContext<DataContextProps>(DataContext);
+export const useData = () => useContext<DataContextProps>(DataContext);
 
-// export const useProviderData = () => {
-//   const [loading, setLoading] = useState(true);
-//   const [account, setAccount] = useState("");
-//   const [fundingDao, setFundingDao] = useState<any>();
-//   const [allProposals, setAllProposals] = useState<Proposal[]>([]);
-//   const [isStakeholder, setIsStakeholder] = useState(false);
-//   const [isMember, setIsMember] = useState(false);
-//   const [currentBal, setCurrentBal] = useState("");
-//   const [allVotes, setAllVotes] = useState<string[]>([]);
-//   const [allInvestedProposal, setAllInvestedProposal] = useState<Proposal[]>(
-//     []
-//   );
+export const useProviderData = () => {
+  const [loading, setLoading] = useState(true);
+  const [account, setAccount] = useState("");
+  // const [fundingDao, setFundingDao] = useState<any>();
+  // const [allProposals, setAllProposals] = useState<Proposal[]>([]);
+  // const [isStakeholder, setIsStakeholder] = useState(false);
+  // const [isMember, setIsMember] = useState(false);
+  // const [currentBal, setCurrentBal] = useState("");
+  // const [allVotes, setAllVotes] = useState<string[]>([]);
+  // const [allInvestedProposal, setAllInvestedProposal] = useState<Proposal[]>(
+  //   []
+  // );
 
-//   useEffect(() => {
-//     connect();
-//   }, []);
+  useEffect(() => {
+    connect();
+  }, []);
 
-  // const connect = async () => {
-  //   if (window.ethereum) {
-  //     window.web3 = new Web3(window.ethereum);
-  //     window.ethereum.request({ method: "eth_requestAccounts" });
-  //     await window.ethereum.enable();
-  //   } else if (window.web3) {
-  //     window.web3 = new Web3(window.web3.currentProvider);
-  //   } else {
-  //     window.alert("Non-Eth browser detected. Please consider using MetaMask.");
-  //     return;
-  //   }
-  //   var allAccounts = await window.web3.eth.getAccounts();
-  //   setAccount(allAccounts[0]);
-  //   await loadBlockchainData();
-  // };
+  const connect = async () => {
+    console.log("here")
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      window.ethereum.request({ method: "eth_requestAccounts" });
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert("Non-Eth browser detected. Please consider using MetaMask.");
+      return;
+    }
+    var allAccounts = await window.web3.eth.getAccounts();
+    setAccount(allAccounts[0]);
+    // await loadBlockchainData();
+  };
 
   // const loadBlockchainData = async () => {
   //   const web3 = window.web3;
@@ -239,22 +238,22 @@
   //   loadBlockchainData();
   // };
 
-  // return {
-  //   account,
-  //   fundingDao,
-  //   loading,
-  //   allProposals,
-  //   isStakeholder,
-  //   isMember,
-  //   currentBal,
-  //   allVotes,
-  //   allInvestedProposal,
-  //   connect,
-  //   createStakeholder,
-  //   createProposal,
-  //   getProposal,
-  //   provideFunds,
-  //   releaseFunding,
-  //   vote,
-  // };
-  // };
+  return {
+    account,
+    // fundingDao,
+    loading,
+    // allProposals,
+    // isStakeholder,
+    // isMember,
+    // currentBal,
+    // allVotes,
+    // allInvestedProposal,
+    connect,
+    // createStakeholder,
+    // createProposal,
+    // getProposal,
+    // provideFunds,
+    // releaseFunding,
+    // vote,
+  };
+};

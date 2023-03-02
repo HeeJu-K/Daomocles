@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useTimer } from "react-timer-hook";
 import Web3 from "web3";
-import { useData } from "../contexts/dataContext";
+// import { useData } from "../contexts/dataContext";
 import { Proposal } from "../utils/interface";
 import { AddFundsModal } from "./addFundModal";
 
@@ -19,7 +19,7 @@ export const ProposalInvestmentCard: React.FC<Props> = ({
     expiryTimestamp: new Date(parseInt(proposal.livePeriod) * 1000),
     onExpire: () => console.warn("onExpire called"),
   });
-  const { isStakeholder, getProposal, releaseFunding } = useData();
+  // const { isStakeholder, getProposal, releaseFunding } = useData();
   const [isOpen, setIsOpen] = React.useState(false);
   const isCompleted =
     new Date(parseInt(proposal.livePeriod) * 1000) < new Date();
@@ -28,14 +28,14 @@ export const ProposalInvestmentCard: React.FC<Props> = ({
   return (
     <div
       className="w-full overflow-hidden sm:my-1 sm:px-1 sm:w-1/2 md:my-2 md:px-2 md:w-1/2 lg:w-1/2 xl:w-1/2 my-2"
-      onClick={async () => {
-        if (isStakeholder) {
-          console.log("isStakeholder");
-          var data: Proposal = await getProposal(proposal.id);
-          console.log(`data`, data);
-          openModal();
-        }
-      }}
+      // onClick={async () => {
+      //   if (isStakeholder) {
+      //     console.log("isStakeholder");
+      //     var data: Proposal = await getProposal(proposal.id);
+      //     console.log(`data`, data);
+      //     openModal();
+      //   }
+      // }}
     >
       <AddFundsModal
         isOpen={isOpen}
@@ -94,9 +94,9 @@ export const ProposalInvestmentCard: React.FC<Props> = ({
           parseInt(proposal.totalFundRaised) >= parseInt(proposal.amount) && (
             <div
               className="px-3 py-2 bg-green-600 text-white font-bold text-center rounded-xl mt-3"
-              onClick={async () => {
-                await releaseFunding(proposal.id);
-              }}
+              // onClick={async () => {
+              //   await releaseFunding(proposal.id);
+              // }}
             >
               Relese Funds
             </div>
