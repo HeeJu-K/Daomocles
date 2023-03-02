@@ -9,6 +9,8 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [editText, setEditText] = useState("Edit");
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
   // const { createProposal } = useData();
@@ -52,65 +54,109 @@ export default function Home() {
       <Navbar />
       {/* {isMember && ( */}
       {true && (
-        <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center">
+        <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
           <div className="w-3/4 border-2 border-blue-600 rounded-xl p-3 mt-10">
             <div className="flex flex-col justify-center">
-              <span className="text-xl text-center">Create a new Proposal</span>
-              <p className="mt-4">
-                You will need to lock 5 MATIC to create proposal.
-              </p>
-              <p className="text-sm mb-4">
-                If proposal is accepted, you will be refunded 5 MATIC and if
-                proposal is rejected, 5 MATIC will go to DAO treasury.
-              </p>
-              <form onSubmit={handleSubmit}>
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="my-2 w-full py-3 px-3 text-base text-gray-700 bg-gray-100 rounded-md focus:outline-none"
-                  placeholder="Title"
-                  autoComplete="off"
-                  required
-                />
-                <textarea
-                  placeholder="Describe your project here"
-                  rows={5}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="my-2 w-full py-3 px-3 text-base text-gray-700 bg-gray-100 rounded-md focus:outline-none"
-                ></textarea>
-                <input
-                  type="file"
-                  name="proposal-image"
-                  onChange={(e) =>
-                    setImage(e.target.files?.length ? e.target.files[0] : null)
-                  }
-                />
-                <input
-                  value={recipient}
-                  onChange={(e) => setRecipient(e.target.value)}
-                  className="my-2 w-full py-3 px-3 text-base text-gray-700 bg-gray-100 rounded-md focus:outline-none"
-                  placeholder="Funding Receiver's Address"
-                  autoComplete="off"
-                  required
-                />
+              {/* <span className="text-xl text-center">Create a new Proposal</span> */}
+              <p className="mt-4 w-full flex flex-wrap items-center justify-between">
+                
+                <div>
+                  Month &nbsp;
 
-                <input
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="my-2 w-full py-3 px-3 text-base text-gray-700 bg-gray-100 rounded-md focus:outline-none"
-                  placeholder="Funding Amount"
-                  autoComplete="off"
-                  required
-                />
+                  <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
+                    <option value="Jan">Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Aug">Aug</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
+                  </select>
 
-                <button
-                  className="mt-3 px-3 py-2 rounded-xl bg-blue-600 text-white"
-                  type="submit"
-                >
-                  Create Proposal
-                </button>
-              </form>
+                  &emsp; Tags &nbsp;
+                  <select className="px-3 py-1 border border-black rounded-xl text-black" name="Labels" id="labels">
+                    <option value="Marketing">Marketing</option>
+                    <option value="Contribution">Contribution</option>
+                    <option value="Grant">Grant</option>
+                  </select>
+                  &emsp;
+
+                  <button
+                    className="px-3 py-1 rounded-xl bg-blue-600 text-white"
+                    type="submit"
+                    name="search-button"
+                    id="search-button"
+                  >
+                    Search
+                  </button>
+                </div>
+                
+                <div>
+                  <button
+                    className="px-3 py-1 rounded-xl bg-black text-white"
+                    type="submit"
+                    name="search-button"
+                    id="search-button"
+                  >
+                    Edit
+                  </button>
+                </div>
+
+              </p>
+              
+              <p className="mt-4 flex flex-col justify-center" id="table">
+                <table className="table-fixed border-black border">
+                  <thead className="border-black border max-w-xs">
+                    <tr>
+                      <th>Item Name</th>
+                      <th>Descriptions</th>
+                      <th>Label</th>
+                      <th>Network</th>
+                      <th>Asset</th>
+                      <th>Value</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="mt-4 max-w-xs">
+                    <div>
+                      <tr>
+                        <td>name 1</td>
+                        <td>here is the description</td>
+                        <td>Marketing</td>
+                        <td>Eth</td>
+                        <td>eth</td>
+                        <td>13</td>
+                        <td>2023-03-02</td>
+                      </tr>
+                    </div>
+                    <tr>
+                      <td>name 1</td>
+                      <td>here is the description</td>
+                      <td>Marketing</td>
+                      <td>Eth</td>
+                      <td>eth</td>
+                      <td>13</td>
+                      <td>2023-03-02</td>
+                    </tr>
+                    <tr>
+                      <td>name 1</td>
+                      <td>here is the description</td>
+                      <td>Marketing</td>
+                      <td>Eth</td>
+                      <td>eth</td>
+                      <td>13</td>
+                      <td>2023-03-02</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </p>
+
             </div>
           </div>
         </main>
