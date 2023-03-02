@@ -77,29 +77,29 @@ function Navbar() {
           {true && (
             <div className="flex flex-row items-center justify-center h-full">
               <TabButton
-                title="Home"
+                title="Overview"
                 isActive={router.asPath === "/"}
                 url={"/"}
               />
               {true && (
                 <TabButton
-                  title="Create Proposal"
-                  isActive={router.asPath === "/create-proposal"}
-                  url={"/create-proposal"}
+                  title="Incoming"
+                  isActive={router.asPath === "/incoming"}
+                  url={"/incoming"}
                 />
               )}
               {true && (
                 <TabButton
-                  title="Stakeholder Lounge"
-                  isActive={router.asPath === "/stakeholder-lounge"}
-                  url={"/stakeholder-lounge "}
+                  title="Outgoing"
+                  isActive={router.asPath === "/outgoing"}
+                  url={"/outgoing "}
                 />
               )}
               {true && (
                 <TabButton
-                  title="Investments"
-                  isActive={router.asPath === "/investments"}
-                  url={"/investments"}
+                  title="Settings"
+                  isActive={router.asPath === "/settings"}
+                  url={"/settings"}
                 />
               )}
             </div>
