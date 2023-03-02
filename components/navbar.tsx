@@ -34,7 +34,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="w-full h-16 mt-auto max-w-5xl">
+      <nav className="w-full h-16 mt-auto max-w-6xl">
         <div className="flex flex-row justify-between items-center h-full">
           <div className="">
             <Link href="/" passHref>
@@ -72,7 +72,7 @@ function Navbar() {
           )}
         </div>
       </nav>
-      <nav className="w-full h-16 m-auto max-w-5xl flex justify-center">
+      <nav className="w-full h-16 m-auto max-w-6xl flex justify-center">
         <div className="flex flex-row justify-between items-center h-full">
           {true && (
             <div className="flex flex-row items-center justify-center h-full">
