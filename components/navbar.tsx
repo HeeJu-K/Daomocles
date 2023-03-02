@@ -6,6 +6,31 @@ import { useData } from "../contexts/dataContext";
 function Navbar() {
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
+  const { account, connect } = useData();
+
+  // const [account, setAccount] = useState("");
+
+
+  // useEffect(() => {
+  //   connect();
+  // }, []);
+
+  // const connect = async () => {
+  //   console.log("here")
+  //   if (window.ethereum) {
+  //     window.ethereum.request({ method: "eth_requestAccounts" });
+  //     window.web3 = new Web3(window.ethereum);
+  //     await window.ethereum.enable();
+  //   } else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider);
+  //   } else {
+  //     window.alert("Non-Eth browser detected. Please consider using MetaMask.");
+  //     return;
+  //   }
+  //   var allAccounts = await window.web3.eth.getAccounts();
+  //   setAccount(allAccounts[0]);
+  //   // await loadBlockchainData();
+  // };
 
   return (
     <>
@@ -14,19 +39,20 @@ function Navbar() {
           <div className="">
             <Link href="/" passHref>
               <span className="font-semibold text-xl cursor-pointer">
-                FundingDAO
+                DAOmocles
               </span>
             </Link>
-            {/* <span className="text-xs bg-blue-500 text-white rounded-lg py-1 px-1 font-bold ml-2">
-              {!isMember && !isStakeholder
+            <span className="text-xs bg-blue-500 text-white rounded-lg py-1 px-1 font-bold ml-2">
+              Member
+              {/* {!isMember && !isStakeholder
                 ? "Not a Member"
                 : isStakeholder
                 ? "Stakeholder"
-                : "Member"}
-            </span> */}
+                : "Member"} */}
+            </span>
           </div>
 
-          {/* {account ? (
+          {account ? (
             <div className="bg-green-500 px-6 py-2 rounded-md cursor-pointer">
               <span className="text-lg text-white">
                 {account.substr(0, 10)}...
@@ -36,12 +62,14 @@ function Navbar() {
             <div
               className="bg-green-500 px-6 py-2 rounded-md cursor-pointer"
               onClick={() => {
+                console.log("clicked on connect");
                 connect();
+                console.log("after connect");
               }}
             >
               <span className="text-lg text-white">Connect</span>
             </div>
-          )} */}
+          )}
         </div>
       </nav>
       <nav className="w-full h-16 m-auto max-w-5xl flex justify-center">
