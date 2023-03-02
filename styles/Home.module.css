@@ -119,3 +119,92 @@
     flex-direction: column;
   }
 }
+
+/* .overviewbox {
+  width: 
+} */
+.overview {
+  display: flex;
+  /* establish flex container */
+  flex-direction: row;
+  /* default value; can be omitted */
+  flex-wrap: nowrap;
+  /* default value; can be omitted */
+  justify-content: space-between;
+  /* switched from default (flex-start, see below) */
+  width: 550px;
+  clear: both;
+  border: 2px purple solid;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.assets {
+  float: left;
+  width: 33%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.incoming {
+  float: right;
+  width: 33%;
+  text-align: center;
+  padding: 2rem;
+}
+
+.outgoing {
+  margin: 0 auto;
+  width: 33%;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* for DAO description card */
+.DAOcontainer {
+  display: grid;
+
+  grid-template-columns: repeat(2, 3fr);
+  grid-template-areas:
+    "sidebar main main"
+    "sidebar main main"
+    "footer main main"
+}
+
+.DAObutton {
+  border: 2px solid;
+  width: 80px;
+}
+
+.DAOname {
+  grid-area: sidebar;
+}
+
+.DAOdescription {
+  grid-area: footer;
+}
+
+.DAOlogo {
+  grid-area: main;
+  width: auto
+}
+
+/* for chart card */
+.chartContainer {
+  margin-top: 50px;
+  display: flex;
+  width: 800px;
+  height: 300px;
+}
+
+.charttitle {
+  margin-left: 35px;
+}
+
+.chartone {
+  flex: 1;
+}
+
+.charttwo {
+  flex: 1;
+}

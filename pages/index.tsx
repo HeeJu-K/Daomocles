@@ -1,29 +1,120 @@
 import Head from "next/head";
+import React, { useState, useEffect } from 'react';
 import { CreateMember } from "../components/createMember";
 import Navbar from "../components/navbar";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 // import { ProposalList } from "../components/proposalList";
 // import { useData } from "../contexts/dataContext";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
+import faker from 'faker';
+
 import styles from "../styles/Home.module.css";
+import DAOlogo from "../temp_assets/THUBA_logo.png";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
 
 export default function Home() {
   // const { isMember, loading, account } = useData();
 
-  // if (loading) {
-  //   return (
-  //     <div className="h-screen w-screen flex justify-center items-center">
-  //       <div className="text-2xl font-bold text-gray-500">Loading...</div>
-  //     </div>
-  //   );
-  // }
-  // if (!account) {
-  //   return (
-  //     <div className="h-screen w-screen flex justify-center items-center">
-  //       <div className="text-2xl font-bold text-gray-500">
-  //         Please connect Metamask Wallet
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [image, setImage] = useState<File | null>();
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const [data, setData] = useState({
+    labels: labels,
+    datasets: [{
+      label: 'Expenses by Month',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      backgroundiColor: [
+        'rgb(153, 102, 255)'
+      ],
+      borderColor: [
+        'rgb(153, 102, 255)'
+      ],
+      borderWidth: 1
+    }]
+  });
+  // update data
+  // setData({
+  //   ...data,
+  //   datasets: [{
+  //     ...data.datasets[0],
+  //     data: [1, 2, 4, 8, 16, 32, 64]
+  //   }]
+  // });
+  const areaOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: false,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+  const lineData = {
+    labels,
+    datasets: [
+      {
+        fill: false,
+        label: 'NFT',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        // borderColor: 'rgb(53, 162, 235)',
+        // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      {
+        fill: false,
+        label: 'Token',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        // borderColor: 'rgb(53, 162, 235)',
+        // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+  const areaData = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        label: 'Dataset 2',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -32,9 +123,63 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
+      {/* <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center"> */}
+      {/* <div className=" border-2 border-purple-600 rounded-xl p-3 mt-10"> */}
+      <div style={{ marginTop: "2rem" }}>
+
+        {/* <div className="flex flex-col justify-center"></div> */}
+        <div className={styles.overview}>
+          <div className={styles.assets}>
+            <Col>
+              <Row>Total Assets</Row>
+              <Row>
+                <Col style={{ float: "left" }}>167.2K</Col>
+                <Col style={{ float: "right" }}>$ USD</Col>
+              </Row>
+            </Col>
+          </div>
+          <div className={styles.incoming}>
+            <Col>
+              <Row>Incoming</Row>
+              <Row>
+                <Col style={{ float: "left" }}>167.2K</Col>
+                <Col style={{ float: "right" }}>$ USD</Col>
+              </Row>
+            </Col>
+          </div>
+          <div className={styles.outgoing}>
+            <Col>
+              <Row>Outgoing</Row>
+              <Row>
+                <Col style={{ float: "left" }}>167.2K</Col>
+                <Col style={{ float: "right" }}>$ USD</Col>
+              </Row>
+            </Col>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.chartContainer}>
+        {/* <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center">
+           <div className="flex flex-col justify-center"></div> */}
+        <div className={styles.chartone}>
+          <div className={styles.charttitle}>Annual Data</div>
+          {/* <Bar data={data} /> */}
+          <Line options={areaOptions} data={areaData} />
+        </div>
+        <div className={styles.charttwo}>
+          <div className={styles.charttitle}>Recent Months</div>
+          <Line options={areaOptions} data={areaData} />
+        </div>
+
+        {/* </main> */}
+      </div>
+      <div style={{width:"800px"}}>
+        <Line options={areaOptions} data={lineData} />
+      </div>
 
       {/* {!isMember && <CreateMember />} */}
       {/* {isMember && <ProposalList />} */}
-    </div>
+    </div >
   );
 }

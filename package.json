@@ -8,17 +8,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/plots": "^1.2.5",
+    "@cubejs-client/core": "^0.31.0",
     "@headlessui/react": "^1.4.2",
     "@openzeppelin/contracts": "^4.4.0",
     "@tailwindcss/line-clamp": "^0.2.2",
     "@types/formidable": "^2.0.0",
     "arweave": "^1.10.18",
     "autoprefixer": "^10.4.0",
+    "chart.js": "^4.2.1",
     "formidable": "^2.0.1",
     "next": "12.0.4",
     "npm": "^8.2.0",
     "postcss": "^8.4.4",
     "react": "17.0.2",
+    "react-bootstrap": "^2.7.2",
+    "react-bootstrap-validation": "^0.1.11",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "17.0.2",
     "react-timer-hook": "^3.0.5",
     "react-toastify": "^8.1.0",
@@ -30,6 +36,8 @@
     "@types/react": "17.0.37",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
+    "faker": "^5.5.3",
+    "parcel": "^2.6.2",
     "typescript": "4.5.2"
   }
 }

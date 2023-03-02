@@ -49,7 +49,7 @@ function Navbar() {
           {true && (
             <div className="flex flex-row items-center justify-center h-full">
               <TabButton
-                title="Home"
+                title="Overview"
                 isActive={router.asPath === "/"}
                 url={"/"}
               />
