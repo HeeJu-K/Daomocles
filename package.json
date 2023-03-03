@@ -10,6 +10,7 @@
   "dependencies": {
     "@ant-design/plots": "^1.2.5",
     "@cubejs-client/core": "^0.31.0",
+    "@fontsource/poppins": "^4.5.10",
     "@headlessui/react": "^1.4.2",
     "@openzeppelin/contracts": "^4.4.0",
     "@tailwindcss/line-clamp": "^0.2.2",
@@ -34,7 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.10",
-    "@types/react": "^18.0.1",
+    "@types/react": "18.0.1",
     "@types/react-dom": "^18.0.11",
     "eslint": "7",
     "eslint-config-next": "12.0.4",

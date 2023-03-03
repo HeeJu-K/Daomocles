@@ -1,11 +1,13 @@
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* height: 100vh; */
+  background-color: #242731;
+  color: #FFFFFF;
 }
 
 .main {
@@ -125,18 +127,16 @@
 } */
 .overview {
   display: flex;
-  /* establish flex container */
   flex-direction: row;
-  /* default value; can be omitted */
   flex-wrap: nowrap;
-  /* default value; can be omitted */
   justify-content: space-between;
-  /* switched from default (flex-start, see below) */
   width: 550px;
   clear: both;
-  border: 2px purple solid;
+  box-shadow: 2px 2px #B98BE8 ;
   border-radius: 15px;
   padding: 10px;
+  background-color: #1F2129;
+  color: #FFFFFF;
 }
 
 .assets {
@@ -207,4 +207,87 @@
 
 .charttwo {
   flex: 1;
+}
+
+/* for incoming page
+  incoming and outgoing uses the same style */
+
+.incomingoutgoing {
+  width: 90%;
+  clear: both;
+  box-shadow: 2px 2px #B98BE8 ;
+  border-radius: 15px;
+  padding: 35px;
+  background-color: #1F2129;
+  color: #FFFFFF;
+}
+
+/* for settings page */
+.settings {
+   /* grid-auto-rows: minmax(100px, auto); */
+   width: 100%;
+   /* clear: both; */
+   box-shadow: 2px 2px #B98BE8 ;
+   border-radius: 15px;
+   padding: 35px;
+   background-color: #1F2129;
+   color: #FFFFFF;
+}
+.settingsgrid {
+  display: grid;
+  grid-template-columns: repeat(1fr 2fr);
+  gap: 20px;
+}
+.one {
+  grid-column: 1; 
+  grid-row: 1;
+  height: 30px;
+}
+.two {
+  grid-column: 2; 
+  grid-row: 1;
+  height: 30px;
+
+}
+.three {
+  grid-column: 1; 
+  grid-row: 2; 
+  align-self: start;
+  height: 30px;
+}
+.four {
+  grid-column: 2; 
+  grid-row: 2 ;
+  height: 30px;
+}
+.five {
+  grid-column: 1;
+  grid-row: 3;
+  height: 30px;
+}
+.six {
+  grid-column: 2;
+  grid-row: 3;
+  height: 30px;
+}
+.seven {
+  grid-column: 1;
+  grid-row: 4;
+  height: 30px;
+}
+.eight {
+  grid-column: 1;
+  grid-row: 5;
+  height: 30px;
+}
+.nine {
+  grid-column: 2;
+  grid-row: 5;
+  height: 30px;
+}
+.confirmbutton {
+  margin: auto;
+  height: 30px;
+  /* text-align: center; */
+  align-items: center;
 }

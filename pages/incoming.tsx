@@ -55,11 +55,11 @@ export default function Home() {
       {/* {isMember && ( */}
       {true && (
         <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
-          <div className="w-3/4 border-2 border-blue-600 rounded-xl p-3 mt-10">
-            <div className="flex flex-col justify-center">
+            {/* <div className="flex flex-col justify-center"> */}
+            <div className={styles.incomingoutgoing}>
               {/* <span className="text-xl text-center">Create a new Proposal</span> */}
               <p className="mt-4 w-full flex flex-wrap items-center justify-between">
-                
+
                 <div>
                   Month &nbsp;
 
@@ -95,7 +95,7 @@ export default function Home() {
                     Search
                   </button>
                 </div>
-                
+
                 <div>
                   <button
                     className="px-3 py-1 rounded-xl bg-black text-white"
@@ -108,10 +108,10 @@ export default function Home() {
                 </div>
 
               </p>
-              
+
               <p className="mt-4 flex flex-col justify-center" id="table">
-                <table className="table-fixed border-black border">
-                  <thead className="border-black border max-w-xs">
+                <table className="table-fixed border-white border">
+                  <thead className="border-white border max-w-xs">
                     <tr>
                       <th>Item Name</th>
                       <th>Descriptions</th>
@@ -158,7 +158,6 @@ export default function Home() {
               </p>
 
             </div>
-          </div>
         </main>
       )}
     </div>

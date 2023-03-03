@@ -2,9 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useData } from "../contexts/dataContext";
-import "@fontsource/poppins";
 
-function Navbar() {
+function SettingNavbar() {
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
@@ -35,68 +34,35 @@ function Navbar() {
 
   return (
     <>
-      <nav className="w-full h-16 mt-auto max-w-6xl">
+      <nav className="w-full mt-auto max-w-6xl">
         <div className="flex flex-row justify-between items-center h-full">
-          <div className="">
-            <Link href="/" passHref>
-              <div style={{fontSize:"2rem", fontFamily:"Poppins"}}>DAOmocles</div>
-              {/* <span className="font-semibold text-xl cursor-pointer">
-                DAOmocles
-              </span> */}
-            </Link>
-            
-          </div>
 
-          {account ? (
-            <div className="bg-green-500 px-6 py-2 rounded-md cursor-pointer">
-              <span className="text-lg text-white">
-                {account.substr(0, 10)}...
-              </span>
-            </div>
-          ) : (
-            <div
-              className="bg-green-500 px-6 py-2 rounded-md cursor-pointer"
-              onClick={() => {
-                console.log("clicked on connect");
-                connect();
-                console.log("after connect");
-              }}
-            >
-              <span className="text-lg text-white">Connect</span>
-            </div>
-          )}
         </div>
       </nav>
-      <nav className="w-full h-16 m-auto max-w-6xl flex justify-center">
+      <nav className="w-full h-16 m-auto max-w-6xl float right">
         <div className="flex flex-row justify-between items-center h-full">
           {true && (
             <div className="flex flex-row items-center justify-center h-full">
               <TabButton
-                title="Overview"
-                isActive={router.asPath === "/"}
-                url={"/"}
+                title="Set Assets Information"
+                isActive={router.asPath === "/assetsinfo"}
+                url={"/assetsinfo"}
               />
               {true && (
                 <TabButton
-                  title="Incoming"
-                  isActive={router.asPath === "/incoming"}
-                  url={"/incoming"}
+                  title="Edit Profiles"
+                  isActive={router.asPath === "/editprofiles"}
+                  url={"/editprofiles"}
                 />
               )}
               {true && (
                 <TabButton
-                  title="Outgoing"
-                  isActive={router.asPath === "/outgoing"}
-                  url={"/outgoing "}
+                  title="Edit Permissions"
+                  isActive={router.asPath === "/editpermissions"}
+                  url={"/editpermissions"}
                 />
               )}
-              {true && (
-                <TabButton
-                  title="Settings"
-                  isActive={router.asPath === "/settings"}
-                  url={"/settings"}
-                />
-              )}
+
             </div>
           )}
         </div>
@@ -105,7 +71,7 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default SettingNavbar;
 
 const TabButton = ({
   title,
@@ -121,9 +87,9 @@ const TabButton = ({
       <div
         className={`h-full px-3 flex items-center font-semibold hover:text-white-700 cursor-pointer ${
           isActive
-            ? "text-white-700 text-base font-semibold"
-            : "text-gray-500 text-base"
-        }`}
+          ? "text-white-700 text-base font-semibold"
+          : "text-gray-500 text-base"
+          }`}
       >
         <span>{title}</span>
       </div>
