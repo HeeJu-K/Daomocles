@@ -88,15 +88,15 @@ export default function Home() {
         fill: false,
         label: 'NFT',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        // borderColor: 'rgb(53, 162, 235)',
-        // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: '#B98BE8',
+        backgroundColor: '#B98BE8',
       },
       {
         fill: false,
         label: 'Token',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        // borderColor: 'rgb(53, 162, 235)',
-        // backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: '#EC1C25',
+        backgroundColor: '#EC1C25',
       },
     ],
   };
@@ -122,32 +122,36 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div style={{ marginTop: "2rem" }}>
+      <div style={{ marginTop: "2rem", width: "80%" }}>
         <div className={styles.overview}>
-          <div className={styles.assets}>
-            <Col>
-              <Row>Total Assets</Row>
-              <Row>
-                <Col style={{ float: "left" }}>167.2K</Col>
-                <Col style={{ float: "right" }}>$ USD</Col>
+          {/* <div className={styles.overviewassets}> */}
+          <div className="w-1/3 ">
+          <Col >
+              <Row style={{textAlign:"center", marginBottom:"15px"}}>Total Assets</Row>
+              <Row style={{textAlign:"center"}}>
+                <span style={{padding:"5px"}}>167.2K</span>
+                <span style={{color:"#B98BE8", padding:"5px"}}>$ USD</span>
               </Row>
             </Col>
           </div>
-          <div className={styles.incoming}>
-            <Col>
-              <Row>Incoming</Row>
-              <Row>
-                <Col style={{ float: "left" }}>167.2K</Col>
-                <Col style={{ float: "right" }}>$ USD</Col>
+          {/* <div className={styles.overviewincoming}> */}
+          {/* <div className="w-1/3" style={{paddingLeft:"10%", paddingRight:"10%"}}> */}
+          <div className="w-1/3" >
+          <Col >
+              <Row style={{textAlign:"center", marginBottom:"15px"}}>Incoming</Row>
+              <Row style={{textAlign:"center"}}>
+                <span style={{padding:"5px"}}>167.2K</span>
+                <span style={{color:"#B98BE8", padding:"5px"}}>$ USD</span>
               </Row>
             </Col>
           </div>
-          <div className={styles.outgoing}>
-            <Col>
-              <Row>Outgoing</Row>
-              <Row>
-                <Col style={{ float: "left" }}>167.2K</Col>
-                <Col style={{ float: "right" }}>$ USD</Col>
+          {/* <div className={styles.overviewoutgoing}> */}
+          <div className="w-1/3 ">
+          <Col >
+              <Row style={{textAlign:"center", marginBottom:"15px"}}>Outgoing</Row>
+              <Row style={{textAlign:"center"}}>
+                <span style={{padding:"5px"}}>167.2K</span>
+                <span style={{color:"#B98BE8", padding:"5px"}}>$ USD</span>
               </Row>
             </Col>
           </div>
@@ -166,7 +170,8 @@ export default function Home() {
         </div>
 
       </div>
-      <div style={{ width: "800px" }}>
+      {/* <div style={{ width: "800px" }}> */}
+      <div style={{width:"600px"}}>
         <Line options={areaOptions} data={lineData} />
       </div>
 

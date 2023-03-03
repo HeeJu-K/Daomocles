@@ -8,6 +8,7 @@
   /* height: 100vh; */
   background-color: #242731;
   color: #FFFFFF;
+  font-family: Poppins;
 }
 
 .main {
@@ -130,34 +131,41 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  width: 550px;
+  width: 100%;
   clear: both;
   box-shadow: 2px 2px #B98BE8 ;
   border-radius: 15px;
-  padding: 10px;
+  padding: 30px 5px;
   background-color: #1F2129;
   color: #FFFFFF;
 }
 
-.assets {
+.overviewassets {
   float: left;
-  width: 33%;
+  width: 20%;
   text-align: center;
-  padding: 2rem;
+  padding: 5%;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.incoming {
+.overviewincoming {
   float: right;
-  width: 33%;
+  width: 20%;
   text-align: center;
-  padding: 2rem;
+  padding: 5%;
+  vertical-align: middle;
+  align-items: center;
+  /* justify-content: center; */
 }
 
-.outgoing {
+.overviewoutgoing {
   margin: 0 auto;
-  width: 33%;
-  text-align: center;
-  padding: 2rem;
+  width: 20%;
+  padding: 5%;
+  text-align: center;  
+  align-items: center;
+  /* padding: 2rem; */
 }
 
 /* for DAO description card */
@@ -191,7 +199,7 @@
 
 /* for chart card */
 .chartContainer {
-  margin-top: 50px;
+  margin-top: 80px;
   display: flex;
   width: 800px;
   height: 300px;
