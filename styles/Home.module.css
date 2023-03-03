@@ -235,10 +235,11 @@
 }
 .settingsgrid {
   display: grid;
-  grid-template-columns: repeat(1fr 2fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 .one {
+  width: 100%;
   grid-column: 1; 
   grid-row: 1;
   height: 30px;
@@ -279,15 +280,27 @@
   grid-column: 1;
   grid-row: 5;
   height: 30px;
+  margin-top: 3rem;
 }
 .nine {
   grid-column: 2;
   grid-row: 5;
   height: 30px;
+  margin-top: 3rem;
+}
+.longinput {
+  grid-column: 1;
+  grid-row: 3;
+  height: 100px;
 }
 .confirmbutton {
   margin: auto;
-  height: 30px;
+  height: 40px;
+  width: 150px;
+  border-radius: 15px;
   /* text-align: center; */
   align-items: center;
+  margin-top: 4rem;
+  margin-left: 45%;
+  background-color: #B98BE8;
 }

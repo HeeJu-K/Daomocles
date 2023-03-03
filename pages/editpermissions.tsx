@@ -16,16 +16,25 @@ export default function Home() {
             </Head>
             <Navbar />
             <SettingNavbar />
-            {true && (
-                <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
-                    <div className="w-3/4 border-2 border-blue-600 rounded-xl p-3 mt-10">
-                        <div className="flex flex-col justify-center">
-                            Edit Permissions
+            <div className={styles.settings} style={{ height: "450px", marginBottom: "3rem" }}>
+                <div className={styles.settingsgrid}>
 
-                        </div>
+                    <div className={styles.one}>Account Address</div>
+                    <input className={styles.two}></input>
+                    <div className={styles.three}>Permissions</div>
+                    <div className={styles.four}>
+                        <select name="Networks" id="networks">
+                            <option value="Ethereum">Owner</option>
+                            <option value="Polygon">Editor</option>
+                            <option value="Mantle">Viewer</option>
+                        </select>
                     </div>
-                </main>
-            )}
+                    <div className={styles.seven}>+ Add Another Token</div>
+                </div>
+                <div>
+                    <button className={styles.confirmbutton}>Confirm</button>
+                </div>
+            </div>
         </div>
     );
 }

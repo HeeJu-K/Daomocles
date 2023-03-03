@@ -2,9 +2,11 @@ import Head from "next/head";
 import { FormEvent, useState } from "react";
 import Navbar from "../components/navbar";
 import SettingNavbar from "../components/settingnavbar";
+
 // import { ProposalList } from "../components/proposalList";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
+import DAOlogo from "../temp_assets/THUBA_logo.png";
 
 export default function Home() {
     return (
@@ -16,16 +18,23 @@ export default function Home() {
             </Head>
             <Navbar />
             <SettingNavbar />
-            {true && (
-                <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
-                    <div className="w-3/4 border-2 border-blue-600 rounded-xl p-3 mt-10">
-                        <div className="flex flex-col justify-center">
-                            Edit Profiles
-
-                        </div>
+            <div className={styles.settings} style={{ height: "450px", marginBottom: "3rem" }}>
+                <div className={styles.settingsgrid}>
+                    <div className={styles.one}>
+                        <img src={require("../temp_assets/THUBA_logo.png")} alt="" />
                     </div>
-                </main>
-            )}
+                    <div className={styles.two}>
+                        Upload Logo Module
+                    </div>
+                    <div className={styles.three}>DAO Name</div>
+                    <input className={styles.four}></input>
+                    <div className={styles.five}>Introduction</div>
+                    <input className={styles.six}></input>
+                </div>
+                <div>
+                    <button className={styles.confirmbutton}>Confirm</button>
+                </div>
+            </div>
         </div>
     );
 }

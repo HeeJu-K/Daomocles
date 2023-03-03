@@ -48,21 +48,21 @@ function Navbar() {
           </div>
 
           {account ? (
-            <div className="bg-green-500 px-6 py-2 rounded-md cursor-pointer">
-              <span className="text-lg text-white">
-                {account.substr(0, 10)}...
+            <div className="px-6 py-2 cursor-pointer" style={{backgroundColor:"#B98BE8", borderRadius:"15px"}}>
+              <span className=" text-white" style={{fontSize:"0.8rem"}}>
+                {account.substr(0, 4)}...{account.substr(38, 42)}
               </span>
             </div>
           ) : (
             <div
-              className="bg-green-500 px-6 py-2 rounded-md cursor-pointer"
+              className="px-6 py-2 rounded-md cursor-pointer" style={{backgroundColor:"#B98BE8", borderRadius:"15px"}}
               onClick={() => {
                 console.log("clicked on connect");
                 connect();
                 console.log("after connect");
               }}
             >
-              <span className="text-lg text-white">Connect</span>
+              <span className="text-white" style={{fontSize:"0.8rem"}}>Connect</span>
             </div>
           )}
         </div>
@@ -93,8 +93,8 @@ function Navbar() {
               {true && (
                 <TabButton
                   title="Settings"
-                  isActive={router.asPath === "/settings"}
-                  url={"/settings"}
+                  isActive={router.asPath === "/assetsinfo" || router.asPath === "/editprofiles" || router.asPath === "/editpermissions"}
+                  url={"/assetsinfo"}
                 />
               )}
             </div>

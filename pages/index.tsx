@@ -7,8 +7,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-// import { ProposalList } from "../components/proposalList";
-// import { useData } from "../contexts/dataContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -124,11 +122,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {/* <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center"> */}
-      {/* <div className=" border-2 border-purple-600 rounded-xl p-3 mt-10"> */}
       <div style={{ marginTop: "2rem" }}>
-
-        {/* <div className="flex flex-col justify-center"></div> */}
         <div className={styles.overview}>
           <div className={styles.assets}>
             <Col>
@@ -161,8 +155,6 @@ export default function Home() {
       </div>
 
       <div className={styles.chartContainer}>
-        {/* <main className="w-full flex flex-col py-4 flex-grow max-w-5xl items-center">
-           <div className="flex flex-col justify-center"></div> */}
         <div className={styles.chartone}>
           <div className={styles.charttitle}>Annual Data</div>
           {/* <Bar data={data} /> */}
@@ -173,7 +165,6 @@ export default function Home() {
           <Line options={areaOptions} data={areaData} />
         </div>
 
-        {/* </main> */}
       </div>
       <div style={{ width: "800px" }}>
         <Line options={areaOptions} data={lineData} />

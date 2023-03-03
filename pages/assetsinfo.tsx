@@ -16,7 +16,7 @@ export default function Home() {
             </Head>
             <Navbar />
             <SettingNavbar />
-            <div className={styles.settings} style={{ height: "500px" }}>
+            <div className={styles.settings} style={{ height: "450px", marginBottom:"3rem" }}>
                 <div className={styles.settingsgrid}>
                     <div className={styles.one}> Network</div>
                     <div className={styles.two}>
