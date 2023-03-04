@@ -1,23 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import * as mongoose from 'mongoose';
 
 @Schema()
-export class DAOBriefDocument extends Document {
-  @Prop()
-  logoURL: string;
-
-  @Prop()
+export class DAOBrief {
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
+  logoURL: string;
+
+  @Prop({ required: true })
   introduction: string;
 
-  @Prop()
+  @Prop({ required: true })
   treasuryAddress: string;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, auto: true })
-  _id: mongoose.Types.ObjectId;
 }
 
-export const DAOBriefSchema = SchemaFactory.createForClass(DAOBriefDocument);
+export type DAOBriefDocument = DAOBrief & Document;
+export const DAOBriefSchema = SchemaFactory.createForClass(DAOBrief);

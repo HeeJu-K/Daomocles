@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UserInfoInterface, DAOBriefInterface } from './app.interface';
-import { DAOBriefSchema, DAOBriefDocument } from './app.schema';
+import { DAOBriefSchema, DAOBriefDocument, DAOBrief } from './app.schema';
 
 @Injectable()
 export class AppService {
   constructor(
-    @InjectModel(DAOBriefDocument.name)
+    @InjectModel(DAOBrief.name)
     private daoBriefModel: Model<DAOBriefDocument>,
   ) {}
 
@@ -17,7 +17,6 @@ export class AppService {
       logoURL: daoBriefInfo.logoURL,
       introduction: daoBriefInfo.introduction,
       treasuryAddress: daoBriefInfo.treasuryAddress,
-      _id: new Types.ObjectId(),
     });
     return daoBrief.save();
   }
