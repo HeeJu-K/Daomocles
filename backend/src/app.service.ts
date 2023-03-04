@@ -12,9 +12,12 @@ import {
 import { DAODocument, DAO, USERDocument, USER } from './app.schema';
 import {
   findDaoListKeyByTreasuryAddress,
+  findPlatformIDByChainIdentifier,
   findTokenListKeyByToken,
   getDAOPermissionInList,
+  getTokenSymbolFromNetwork,
 } from './app.helper';
+import axios from 'axios';
 
 @Injectable()
 export class AppService {
@@ -298,6 +301,30 @@ export class AppService {
     } else {
       return null;
     }
+  }
+
+  async getTokenInfo(
+    tokenAddress: string,
+    tokenNetwork: number,
+  ): Promise<TokenInterface> {
+    let newToken: TokenInterface = {
+      name: '',
+      address: tokenAddress,
+      network: tokenNetwork,
+      symbol: '',
+      priceURL: '',
+    };
+    newToken = await getTokenSymbolFromNetwork(
+      tokenAddress,
+      tokenNetwork,
+      newToken,
+    );
+    const platformID = await findPlatformIDByChainIdentifier(tokenNetwork);
+    Logger.log(platformID);
+    if (platformID == null) return null;
+    newToken.priceURL = `https://api.coingecko.com/api/v3/simple/token_price/${platformID}?contract_addresses=${tokenAddress}&vs_currencies=usd`;
+    Logger.log(newToken);
+    return newToken;
   }
 
   async getTokenList(

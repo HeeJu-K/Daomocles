@@ -7,6 +7,7 @@ import {
   Logger,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Multer } from 'multer';
@@ -125,6 +126,16 @@ export class AppController {
   async getTokenList(@Param() params): Promise<Array<TokenInterface>> {
     Logger.log('get dao/token');
     return await this.appService.getTokenList(params.address, params.daoID);
+  }
+
+  @Get(':address/:daoID/token/info')
+  async getTokenInfo(
+    @Param() params,
+    @Query('tokenAddress') tokenAddress: string,
+    @Query('tokenNetwork') tokenNetwork: number,
+  ): Promise<TokenInterface> {
+    Logger.log('get dao/token/info');
+    return await this.appService.getTokenInfo(tokenAddress, tokenNetwork);
   }
 
   @Post(':address/:daoID/token/new')

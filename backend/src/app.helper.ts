@@ -1,11 +1,12 @@
+import { Logger } from '@nestjs/common';
 import {
   AccessType,
   DAOBriefInterface,
   DAOInterface,
-  Network,
   PermissionInterface,
   TokenInterface,
 } from './app.interface';
+import axios from 'axios';
 
 export function findDaoListKeyByTreasuryAddress(
   daoList: Array<DAOBriefInterface>,
@@ -47,7 +48,7 @@ export function getDAOPermissionInList(
 export function findTokenListKeyByToken(
   tokenList: Array<TokenInterface>,
   tokenAddress: string,
-  tokenNetwork: Network,
+  tokenNetwork: number,
 ): number {
   for (let i = 0; i < tokenList.length; i++) {
     if (
@@ -58,4 +59,32 @@ export function findTokenListKeyByToken(
     }
   }
   return -1;
+}
+
+export async function findPlatformIDByChainIdentifier(
+  chainIdentifier: number,
+): Promise<string> {
+  const response =
+    await axios.get(`https://api.coingecko.com/api/v3/asset_platforms
+    `);
+  for (let i = 0; i < response.data.length; i++) {
+    if (response.data[i].chain_identifier == chainIdentifier) {
+      return response.data[i].id;
+    }
+  }
+  return null;
+}
+
+export async function getTokenSymbolFromNetwork(
+  tokenAddress: string,
+  tokenNetwork: number,
+  token: TokenInterface,
+): Promise<TokenInterface> {
+  const response = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/ethereum/contract/${tokenAddress}`,
+  );
+  const data = response.data;
+  token.symbol = data.symbol;
+  token.name = data.name;
+  return token;
 }

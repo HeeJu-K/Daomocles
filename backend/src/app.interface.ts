@@ -1,10 +1,3 @@
-export enum Network {
-  ETH,
-  BSC,
-  POLY,
-  MANTLE,
-}
-
 export enum AccessType {
   Admin,
   SubAdmin,
@@ -14,7 +7,7 @@ export enum AccessType {
 export interface TokenInterface {
   name: string;
   address: string;
-  network: Network;
+  network: number;
   symbol: string;
   priceURL: string;
 }
