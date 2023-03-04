@@ -1,39 +1,75 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+frontend-interface/node_modules
+frontend-interface/.pnp
+frontend-interface/.pnp.js
 
 # testing
-/coverage
+frontend-interface/coverage
 
 # next.js
-/.next/
-/out/
+frontend-interface/.next/
+frontend-interface/out/
 
 # production
-/build
+frontend-interface/build
 
 # misc
-.DS_Store
-*.pem
+frontend-interface/.DS_Store
+frontend-interface/*.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+frontend-interface/npm-debug.log*
+frontend-interface/yarn-debug.log*
+frontend-interface/yarn-error.log*
 
 # local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+frontend-interface/.env
+frontend-interface/.env.local
+frontend-interface/.env.development.local
+frontend-interface/.env.test.local
+frontend-interface/.env.production.local
 
 # vercel
-.vercel
+frontend-interface/.vercel
 
 # typescript
-*.tsbuildinfo
-arweave-key.json
+frontend-interface/*.tsbuildinfo
+frontend-interface/arweave-key.json
+# compiled output
+backend/dist
+backend/node_modules
+backend/tmp
+
+# Logs
+backend/logs
+backend/*.log
+backend/npm-debug.log*
+backend/pnpm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+backend/coverage
+backend/.nyc_output
+
+# IDEs and editors
+backend/.idea
+backend/.project
+backend/.classpath
+backend/.c9/
+backend/*.launch
+backend/.settings/
+backend/*.sublime-workspace
+
+# IDE - VSCode
+backend/.vscode/*
+backend/!.vscode/settings.json
+backend/!.vscode/tasks.json
+backend/!.vscode/launch.json
+backend/!.vscode/extensions.json
