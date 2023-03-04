@@ -43,3 +43,8 @@ export interface UserInfoInterface {
   userAddress: string;
   daoList: Array<DAOBriefInterface>;
 }
+
+export interface PermissionInterface {
+  userAddress: string;
+  access: AccessType;
+}

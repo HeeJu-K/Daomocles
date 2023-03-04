@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MulterModule } from '@nestjs/platform-express';
+import { multerConfig } from './multer.config';
 import {
   DAO,
   DAOSchema,
@@ -24,6 +26,10 @@ config(); // load environment variables
     ConfigModule.forRoot({
       isGlobal: true, // optional
       envFilePath: ['.env'], // optional
+    }),
+    MulterModule.register({
+      dest: './tmp',
+      ...multerConfig,
     }),
   ],
   controllers: [AppController],

@@ -1,20 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import {
   UserInfoInterface,
   DAOBriefInterface,
   DAOInterface,
   AccessType,
+  PermissionInterface,
 } from './app.interface';
-import {
-  DAODocument,
-  DAO,
-  DAOBriefDocument,
-  DAOBrief,
-  USERDocument,
-  USER,
-} from './app.schema';
+import { DAODocument, DAO, USERDocument, USER } from './app.schema';
 import { findDaoListKeyByTreasuryAddress } from './app.helper';
 
 @Injectable()
@@ -141,15 +135,79 @@ export class AppService {
     }
   }
 
-  async findAll(): Promise<DAOInterface[]> {
-    return this.daoModel.find().exec();
-  }
-
   async getUserInfo(userAddress: string): Promise<UserInfoInterface> {
     // query for user from database
     const existingUser = await this.userModel.findOne({
       userAddress: userAddress,
     });
     return existingUser;
+  }
+
+  async updateDAOPermission(
+    userAddress: string,
+    daoID: string,
+    permissionArray: Array<PermissionInterface>,
+  ): Promise<DAOInterface> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (existingDao.admin.includes(userAddress)) {
+      for (let i = 0; i < permissionArray.length; i++) {
+        if (
+          permissionArray[i].access == AccessType.Admin &&
+          !existingDao.admin.includes(permissionArray[i].userAddress)
+        ) {
+          existingDao.admin.push(permissionArray[i].userAddress);
+        } else if (
+          permissionArray[i].access == AccessType.SubAdmin &&
+          !existingDao.subAdmin.includes(permissionArray[i].userAddress)
+        ) {
+          existingDao.subAdmin.push(permissionArray[i].userAddress);
+        } else if (
+          permissionArray[i].access == AccessType.Member &&
+          !existingDao.members.includes(permissionArray[i].userAddress)
+        ) {
+          existingDao.members.push(permissionArray[i].userAddress);
+        }
+      }
+    } else {
+      return null;
+    }
+    return existingDao.save();
+  }
+
+  async deleteDAOUser(
+    userAddress: string,
+    daoID: string,
+    toDeleteInfo: PermissionInterface,
+  ): Promise<DAOInterface> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    Logger.log(existingDao);
+    Logger.log(toDeleteInfo.access);
+    if (existingDao.admin.includes(userAddress)) {
+      if (toDeleteInfo.access == AccessType.Admin) {
+        const index = existingDao.admin.indexOf(toDeleteInfo.userAddress, 0);
+        if (index > -1) {
+          existingDao.admin.splice(index, 1);
+        }
+      } else if (toDeleteInfo.access == AccessType.SubAdmin) {
+        const index = existingDao.subAdmin.indexOf(toDeleteInfo.userAddress, 0);
+        if (index > -1) {
+          existingDao.subAdmin.splice(index, 1);
+        }
+      } else if (toDeleteInfo.access == AccessType.Member) {
+        const index = existingDao.members.indexOf(toDeleteInfo.userAddress, 0);
+        if (index > -1) {
+          existingDao.members.splice(index, 1);
+        }
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    return existingDao.save();
   }
 }
