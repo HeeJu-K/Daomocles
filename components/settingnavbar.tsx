@@ -1,13 +1,21 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { useData } from "../contexts/dataContext";
 
-function SettingNavbar() {
+function SettingNavbar(props) {
+  const {
+    daoname,
+  } = props
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
-
+  const [daoName, setDaoName] = useState("")
+  console.log("settings nav bar daoname", daoname)
+  useEffect(() => {
+    setDaoName(daoname)
+    console.log("router  router.asPath", router.asPath)
+  }, []);
   // const [account, setAccount] = useState("");
 
 
@@ -45,21 +53,21 @@ function SettingNavbar() {
             <div className="flex flex-row items-center justify-center h-full">
               <TabButton
                 title="Set Assets Information"
-                isActive={router.asPath === "/assetsinfo"}
-                url={"/assetsinfo"}
+                isActive={router.asPath.substring(0, 11) === "/assetsinfo"}
+                url={"/assetsinfo?DAO="+daoName}
               />
               {true && (
                 <TabButton
                   title="Edit Profiles"
-                  isActive={router.asPath === "/editprofiles"}
-                  url={"/editprofiles"}
+                  isActive={router.asPath.substring(0, 13) === "/editprofiles"}
+                  url={"/editprofiles?DAO="+daoName}
                 />
               )}
               {true && (
                 <TabButton
                   title="Edit Permissions"
-                  isActive={router.asPath === "/editpermissions"}
-                  url={"/editpermissions"}
+                  isActive={router.asPath.substring(0, 16) === "/editpermissions"}
+                  url={"/editpermissions?DAO="+daoName}
                 />
               )}
 

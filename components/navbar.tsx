@@ -1,20 +1,30 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { useData } from "../contexts/dataContext";
 import "@fontsource/poppins";
 
-function Navbar() {
+function Navbar(props) {
+  const {
+    isCreate,
+    daoname,
+  } = props
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
-
+  const [daoName, setDaoName] = useState("")
   // const [account, setAccount] = useState("");
 
-
-  // useEffect(() => {
-  //   connect();
-  // }, []);
+  console.log("navbar daoname", daoname)
+  useEffect(() => {
+    if (daoname == "undefined") {
+      setDaoName("")
+    }
+    else {
+      setDaoName(daoname)
+    }
+    console.log("router ", router.asPath.substring(0, 6))
+  }, []);
 
   // const connect = async () => {
   //   console.log("here")
@@ -39,17 +49,25 @@ function Navbar() {
         <div className="flex flex-row justify-between items-center h-full">
           <div className="" >
             <Link href="/" passHref>
-              <div style={{ fontSize: "2rem", marginTop:"20px" }}>DAOmocles</div>
+              <div style={{ fontSize: "2rem", marginTop: "20px" }}>DAOmocles</div>
               {/* <span className="font-semibold text-xl cursor-pointer">
                 DAOmocles
               </span> */}
             </Link>
-            <span style={{ fontSize: "1rem", color:"#B98BE8" }}>THUBA DAO</span>
-            <span style={{ fontSize: "1rem", color:"white", marginLeft:"15px", backgroundColor:"#B98BE8", borderRadius:"5px", paddingLeft:"5px", paddingRight:"5px" }}>admin</span>
+            {/* <span style={{ fontSize: "1rem", color: "white", marginLeft: "15px", backgroundColor: "#B98BE8", borderRadius: "5px", paddingLeft: "5px", paddingRight: "5px" }}>Hi </span>
+            <span style={{ fontSize: "1rem", color: "#B98BE8" }}>THUBA DAO</span> */}
+            {/* <span style={{ fontSize: "1rem", color: "white" }}>Hi there!</span> */}
+            {daoName &&
+              <span style={{ fontSize: "1.1rem", color: "white", marginTop: "30px", backgroundColor: "#B98BE8", borderRadius: "5px", paddingLeft: "5px", paddingRight: "5px" }}>{daoName}</span>
+            }
           </div>
 
           {account ? (
-            <div className="px-6 py-2 cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px" }}>
+            <div className="px-6 py-2 cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px" }}
+              onClick={() => {
+                console.log("clicked for disconnect", account)
+              }}
+            >
               <span className=" text-white" style={{ fontSize: "0.8rem" }}>
                 {account.substr(0, 4)}...{account.substr(38, 42)}
               </span>
@@ -70,34 +88,34 @@ function Navbar() {
       </nav>
       <nav className="w-full h-23 m-auto max-w-6xl flex justify-center">
         {/* <div className="flex flex-row justify-between items-center h-full" style={{width:"600px"}}> */}
-        {true && (
+        {!isCreate && (
           // <div className="flex flex-row items-center justify-center h-full" style={{width:"700px"}}>
           <div style={{ display: "flex", width: "80%", marginTop: "50px", marginBottom: "10px" }}>
 
             <TabButton
               title="Overview"
-              isActive={router.asPath === "/"}
-              url={"/"}
+              isActive={router.asPath.substring(0, 9) === "/overview"}
+              url={"/overview?DAO="+daoName}
             />
             {true && (
               <TabButton
                 title="Incoming"
-                isActive={router.asPath === "/incoming"}
-                url={"/incoming"}
+                isActive={router.asPath.substring(0, 9) === "/incoming"}
+                url={"/incoming?DAO="+daoName}
               />
             )}
             {true && (
               <TabButton
                 title="Outgoing"
-                isActive={router.asPath === "/outgoing"}
-                url={"/outgoing "}
+                isActive={router.asPath.substring(0, 9) === "/outgoing"}
+                url={"/outgoing?DAO="+daoName}
               />
             )}
             {true && (
               <TabButton
                 title="Settings"
-                isActive={router.asPath === "/assetsinfo" || router.asPath === "/editprofiles" || router.asPath === "/editpermissions"}
-                url={"/assetsinfo"}
+                isActive={router.asPath.substring(0, 11) === "/assetsinfo" || router.asPath.substring(0, 13) === "/editprofiles" || router.asPath.substring(0, 16) === "/editpermissions"}
+                url={"/assetsinfo?DAO="+daoName}
               />
             )}
           </div>
