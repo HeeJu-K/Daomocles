@@ -26,7 +26,7 @@ export class AppController {
 
   @Get('/:address/')
   async getUserInfoInterface(@Param() params): Promise<UserInfoInterface> {
-    Logger.log('/getUserInfoInterface');
+    Logger.log('get /getUserInfoInterface');
     return await this.appService.getUserInfo(params.address);
   }
 
@@ -35,7 +35,7 @@ export class AppController {
     @Param() params,
     @Body() daoInfo: DAOBriefInterface,
   ): Promise<UserInfoInterface> {
-    Logger.log('/createNew');
+    Logger.log('post /createNew');
     return await this.appService.createOrUpdateDAO(params.address, daoInfo);
   }
 
@@ -44,8 +44,7 @@ export class AppController {
     @Param() params,
     @Body() daoInfo: DAOBriefInterface,
   ): Promise<UserInfoInterface> {
-    params.address;
-    params.daoID;
+    Logger.log('post /profile');
     return await this.appService.createOrUpdateDAO(params.address, daoInfo);
   }
 
@@ -54,7 +53,7 @@ export class AppController {
     @Param() params,
     @Body() permissionArray: Array<PermissionInterface>,
   ): Promise<DAOInterface> {
-    Logger.log('/dao/permission');
+    Logger.log('post /dao/permission');
     return await this.appService.updateDAOPermission(
       params.address,
       params.daoID,
@@ -68,7 +67,7 @@ export class AppController {
     @Param() params,
     @UploadedFile() file: Multer.File,
   ): Promise<any> {
-    Logger.log('dao/permission/batch');
+    Logger.log('post /dao/permission/batch');
     // Use the csv-parser package to parse the file data
     const csvFile = readFileSync(file.path);
     const csvData = csvFile.toString();
@@ -91,11 +90,20 @@ export class AppController {
     @Param() params,
     @Body() permission: PermissionInterface,
   ): Promise<DAOInterface> {
-    Logger.log('dao/permission/delete');
+    Logger.log('post dao/permission/delete');
     return await this.appService.deleteDAOUser(
       params.address,
       params.daoID,
       permission,
+    );
+  }
+
+  @Get(':address/:daoID/permission')
+  async getDAOPermission(@Param() params): Promise<Array<PermissionInterface>> {
+    Logger.log('get dao/permission/');
+    return await this.appService.getDAOPermissionInfo(
+      params.address,
+      params.daoID,
     );
   }
 }

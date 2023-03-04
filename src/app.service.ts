@@ -143,6 +143,39 @@ export class AppService {
     return existingUser;
   }
 
+  async getDAOPermissionInfo(
+    userAddress: string,
+    daoID: string,
+  ): Promise<Array<PermissionInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (existingDao.admin.includes(userAddress)) {
+      const result: Array<PermissionInterface> = [];
+      for (let i = 0; i < existingDao.admin.length; i++) {
+        result.push({
+          userAddress: existingDao.admin[i],
+          access: AccessType.Admin,
+        });
+      }
+      for (let i = 0; i < existingDao.subAdmin.length; i++) {
+        result.push({
+          userAddress: existingDao.subAdmin[i],
+          access: AccessType.SubAdmin,
+        });
+      }
+      for (let i = 0; i < existingDao.members.length; i++) {
+        result.push({
+          userAddress: existingDao.members[i],
+          access: AccessType.Member,
+        });
+      }
+      return result;
+    } else {
+      return null;
+    }
+  }
+
   async updateDAOPermission(
     userAddress: string,
     daoID: string,
@@ -184,10 +217,11 @@ export class AppService {
     const existingDao = await this.daoModel.findOne({
       _id: daoID,
     });
-    Logger.log(existingDao);
-    Logger.log(toDeleteInfo.access);
     if (existingDao.admin.includes(userAddress)) {
-      if (toDeleteInfo.access == AccessType.Admin) {
+      if (
+        toDeleteInfo.access == AccessType.Admin &&
+        existingDao.admin.length > 1
+      ) {
         const index = existingDao.admin.indexOf(toDeleteInfo.userAddress, 0);
         if (index > -1) {
           existingDao.admin.splice(index, 1);
