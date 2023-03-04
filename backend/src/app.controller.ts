@@ -48,11 +48,20 @@ export class AppController {
     return await this.appService.createOrUpdateDAO(params.address, daoInfo);
   }
 
+  @Get(':address/:daoID/permission')
+  async getDAOPermission(@Param() params): Promise<Array<PermissionInterface>> {
+    Logger.log('get dao/permission/');
+    return await this.appService.getDAOPermissionInfo(
+      params.address,
+      params.daoID,
+    );
+  }
+
   @Post(':address/:daoID/permission')
-  async updateDAOPermission(
+  async newDAOPermission(
     @Param() params,
     @Body() permissionArray: Array<PermissionInterface>,
-  ): Promise<DAOInterface> {
+  ): Promise<Array<PermissionInterface>> {
     Logger.log('post /dao/permission');
     return await this.appService.newDAOPermission(
       params.address,
@@ -63,10 +72,10 @@ export class AppController {
 
   @Post(':address/:daoID/permission/batch')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(
+  async newDAOPermissionViaFile(
     @Param() params,
     @UploadedFile() file: Multer.File,
-  ): Promise<any> {
+  ): Promise<Array<PermissionInterface>> {
     Logger.log('post /dao/permission/batch');
     // Use the csv-parser package to parse the file data
     const csvFile = readFileSync(file.path);
@@ -85,25 +94,29 @@ export class AppController {
     );
   }
 
+  @Post(':address/:daoID/permission/update')
+  async updateDAOPermission(
+    @Param() params,
+    @Body() permissionArray: Array<PermissionInterface>,
+  ): Promise<Array<PermissionInterface>> {
+    Logger.log('post dao/permission/update');
+    return await this.appService.updateDAOPermission(
+      params.address,
+      params.daoID,
+      permissionArray[0],
+    );
+  }
+
   @Post(':address/:daoID/permission/delete')
   async deleteDAOPermission(
     @Param() params,
-    @Body() permission: PermissionInterface,
-  ): Promise<DAOInterface> {
+    @Body() permissionArray: Array<PermissionInterface>,
+  ): Promise<Array<PermissionInterface>> {
     Logger.log('post dao/permission/delete');
     return await this.appService.deleteDAOUser(
       params.address,
       params.daoID,
-      permission,
-    );
-  }
-
-  @Get(':address/:daoID/permission')
-  async getDAOPermission(@Param() params): Promise<Array<PermissionInterface>> {
-    Logger.log('get dao/permission/');
-    return await this.appService.getDAOPermissionInfo(
-      params.address,
-      params.daoID,
+      permissionArray[0],
     );
   }
 }

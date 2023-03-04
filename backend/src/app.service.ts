@@ -9,7 +9,10 @@ import {
   PermissionInterface,
 } from './app.interface';
 import { DAODocument, DAO, USERDocument, USER } from './app.schema';
-import { findDaoListKeyByTreasuryAddress } from './app.helper';
+import {
+  findDaoListKeyByTreasuryAddress,
+  getDAOPermissionInList,
+} from './app.helper';
 
 @Injectable()
 export class AppService {
@@ -41,7 +44,7 @@ export class AppService {
         existingDao.logoURL = daoBriefInfo.logoURL;
         existingDao.introduction = daoBriefInfo.introduction;
         existingDao.treasuryAddress = daoBriefInfo.treasuryAddress;
-        const response = existingDao.save();
+        const response = await existingDao.save();
         daoID = (await response).id;
         daoUpdateSuccessful = true;
       }
@@ -61,7 +64,7 @@ export class AppService {
         treasuryAddress: daoBriefInfo.treasuryAddress,
         admin: [userAddress],
       });
-      const response = dao.save();
+      const response = await dao.save();
       daoID = (await response).id;
       daoCreationSuccessful = true;
     }
@@ -86,7 +89,7 @@ export class AppService {
       if (daoCreationSuccessful) {
         Logger.log('User Exist: Dao Creation Successful');
         existingUser.daoList.push(daoBrief);
-        return existingUser.save();
+        return await existingUser.save();
       }
       // if its dao update
       else if (daoUpdateSuccessful) {
@@ -106,7 +109,7 @@ export class AppService {
           );
           existingUser.daoList.push(daoBrief);
         }
-        existingUser.save();
+        await existingUser.save();
         return existingUser;
       }
       // if dao creation or update failed, then return original data;
@@ -124,13 +127,13 @@ export class AppService {
           userAddress: userAddress,
           daoList: [daoBrief],
         });
-        return newUser.save();
+        return await newUser.save();
       } else {
         Logger.log('User Not Exist: User Create Successful');
         const newUser = new this.userModel({
           userAddress: userAddress,
         });
-        return newUser.save();
+        return await newUser.save();
       }
     }
   }
@@ -151,25 +154,8 @@ export class AppService {
       _id: daoID,
     });
     if (existingDao.admin.includes(userAddress)) {
-      const result: Array<PermissionInterface> = [];
-      for (let i = 0; i < existingDao.admin.length; i++) {
-        result.push({
-          userAddress: existingDao.admin[i],
-          access: AccessType.Admin,
-        });
-      }
-      for (let i = 0; i < existingDao.subAdmin.length; i++) {
-        result.push({
-          userAddress: existingDao.subAdmin[i],
-          access: AccessType.SubAdmin,
-        });
-      }
-      for (let i = 0; i < existingDao.members.length; i++) {
-        result.push({
-          userAddress: existingDao.members[i],
-          access: AccessType.Member,
-        });
-      }
+      const result: Array<PermissionInterface> =
+        getDAOPermissionInList(existingDao);
       return result;
     } else {
       return null;
@@ -180,10 +166,11 @@ export class AppService {
     userAddress: string,
     daoID: string,
     permissionArray: Array<PermissionInterface>,
-  ): Promise<DAOInterface> {
+  ): Promise<Array<PermissionInterface>> {
     const existingDao = await this.daoModel.findOne({
       _id: daoID,
     });
+    Logger.log(permissionArray);
     if (existingDao.admin.includes(userAddress)) {
       for (let i = 0; i < permissionArray.length; i++) {
         if (
@@ -203,38 +190,105 @@ export class AppService {
           existingDao.members.push(permissionArray[i].userAddress);
         }
       }
+      await existingDao.save();
+      const result: Array<PermissionInterface> =
+        getDAOPermissionInList(existingDao);
+      return result;
     } else {
       return null;
     }
-    return existingDao.save();
+  }
+
+  async updateDAOPermission(
+    userAddress: string,
+    daoID: string,
+    permission: PermissionInterface,
+  ): Promise<Array<PermissionInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (
+      existingDao.admin.includes(userAddress) &&
+      permission.userAddress != userAddress
+    ) {
+      const index1 = existingDao.admin.indexOf(permission.userAddress, 0);
+      const index2 = existingDao.subAdmin.indexOf(permission.userAddress, 0);
+      const index3 = existingDao.members.indexOf(permission.userAddress, 0);
+      if (index1 > -1) {
+        existingDao.admin.splice(index1, 1);
+      } else if (index2 > -1) {
+        existingDao.subAdmin.splice(index1, 1);
+      } else if (index3 > -1) {
+        existingDao.members.splice(index1, 1);
+      } else {
+        return null;
+      }
+      if (permission.access == AccessType.Admin) {
+        existingDao.admin.push(permission.userAddress);
+      } else if (permission.access == AccessType.SubAdmin) {
+        existingDao.subAdmin.push(permission.userAddress);
+      } else if (permission.access == AccessType.Member) {
+        existingDao.members.push(permission.userAddress);
+      } else {
+        return null;
+      }
+      await existingDao.save();
+      const result: Array<PermissionInterface> =
+        getDAOPermissionInList(existingDao);
+      return result;
+    } else {
+      return null;
+    }
   }
 
   async deleteDAOUser(
     userAddress: string,
     daoID: string,
     toDeleteInfo: PermissionInterface,
-  ): Promise<DAOInterface> {
+  ): Promise<Array<PermissionInterface>> {
     const existingDao = await this.daoModel.findOne({
       _id: daoID,
     });
-    if (existingDao.admin.includes(userAddress)) {
-      if (
-        toDeleteInfo.access == AccessType.Admin &&
-        existingDao.admin.length > 1
-      ) {
-        const index = existingDao.admin.indexOf(toDeleteInfo.userAddress, 0);
+    Logger.log(existingDao.admin);
+    Logger.log(existingDao.admin.includes(userAddress));
+    Logger.log(userAddress != toDeleteInfo.userAddress);
+    if (
+      existingDao.admin.includes(userAddress) &&
+      userAddress != toDeleteInfo.userAddress
+    ) {
+      let index = -1;
+      if (toDeleteInfo.access == AccessType.Admin) {
+        index = existingDao.admin.indexOf(toDeleteInfo.userAddress, 0);
         if (index > -1) {
           existingDao.admin.splice(index, 1);
+          await existingDao.save();
+          const result: Array<PermissionInterface> =
+            getDAOPermissionInList(existingDao);
+          return result;
+        } else {
+          return null;
         }
       } else if (toDeleteInfo.access == AccessType.SubAdmin) {
-        const index = existingDao.subAdmin.indexOf(toDeleteInfo.userAddress, 0);
+        index = existingDao.subAdmin.indexOf(toDeleteInfo.userAddress, 0);
         if (index > -1) {
           existingDao.subAdmin.splice(index, 1);
+          await existingDao.save();
+          const result: Array<PermissionInterface> =
+            getDAOPermissionInList(existingDao);
+          return result;
+        } else {
+          return null;
         }
       } else if (toDeleteInfo.access == AccessType.Member) {
-        const index = existingDao.members.indexOf(toDeleteInfo.userAddress, 0);
+        index = existingDao.members.indexOf(toDeleteInfo.userAddress, 0);
         if (index > -1) {
           existingDao.members.splice(index, 1);
+          await existingDao.save();
+          const result: Array<PermissionInterface> =
+            getDAOPermissionInList(existingDao);
+          return result;
+        } else {
+          return null;
         }
       } else {
         return null;
@@ -242,6 +296,5 @@ export class AppService {
     } else {
       return null;
     }
-    return existingDao.save();
   }
 }
