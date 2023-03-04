@@ -16,6 +16,7 @@ import {
   DAOBriefInterface,
   PermissionInterface,
   DAOInterface,
+  TokenInterface,
 } from './app.interface';
 import { readFileSync } from 'fs';
 import { parse } from 'papaparse';
@@ -117,6 +118,25 @@ export class AppController {
       params.address,
       params.daoID,
       permissionArray[0],
+    );
+  }
+
+  @Get(':address/:daoID/token')
+  async getTokenList(@Param() params): Promise<Array<TokenInterface>> {
+    Logger.log('get dao/token');
+    return await this.appService.getTokenList(params.address, params.daoID);
+  }
+
+  @Post(':address/:daoID/token/new')
+  async newToken(
+    @Param() params,
+    @Body() newToken: TokenInterface,
+  ): Promise<Array<TokenInterface>> {
+    Logger.log('post dao/token/new');
+    return await this.appService.addToken(
+      params.address,
+      params.daoID,
+      newToken,
     );
   }
 }

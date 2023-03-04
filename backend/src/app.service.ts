@@ -7,10 +7,12 @@ import {
   DAOInterface,
   AccessType,
   PermissionInterface,
+  TokenInterface,
 } from './app.interface';
 import { DAODocument, DAO, USERDocument, USER } from './app.schema';
 import {
   findDaoListKeyByTreasuryAddress,
+  findTokenListKeyByToken,
   getDAOPermissionInList,
 } from './app.helper';
 
@@ -297,4 +299,47 @@ export class AppService {
       return null;
     }
   }
+
+  async getTokenList(
+    userAddress: string,
+    daoID: string,
+  ): Promise<Array<TokenInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (existingDao.admin.includes(userAddress)) {
+      return existingDao.tokens;
+    }
+  }
+
+  async addToken(
+    userAddress: string,
+    daoID: string,
+    newToken: TokenInterface,
+  ): Promise<Array<TokenInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (existingDao.admin.includes(userAddress)) {
+      const index = findTokenListKeyByToken(
+        existingDao.tokens,
+        newToken.address,
+        newToken.network,
+      );
+      if (index == -1) {
+        existingDao.tokens.push(newToken);
+        const result = await existingDao.save();
+        return result.tokens;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  // async removeToken(
+  //   userAddress: string,
+  //   daoID: string,
+  // ): Promise<Array<TokenInterface>> {}
 }

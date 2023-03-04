@@ -2,7 +2,9 @@ import {
   AccessType,
   DAOBriefInterface,
   DAOInterface,
+  Network,
   PermissionInterface,
+  TokenInterface,
 } from './app.interface';
 
 export function findDaoListKeyByTreasuryAddress(
@@ -40,4 +42,20 @@ export function getDAOPermissionInList(
     });
   }
   return result;
+}
+
+export function findTokenListKeyByToken(
+  tokenList: Array<TokenInterface>,
+  tokenAddress: string,
+  tokenNetwork: Network,
+): number {
+  for (let i = 0; i < tokenList.length; i++) {
+    if (
+      tokenList[i].address == tokenAddress &&
+      tokenList[i].network == tokenNetwork
+    ) {
+      return i;
+    }
+  }
+  return -1;
 }
