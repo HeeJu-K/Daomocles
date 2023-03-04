@@ -176,7 +176,7 @@ export class AppService {
     }
   }
 
-  async updateDAOPermission(
+  async newDAOPermission(
     userAddress: string,
     daoID: string,
     permissionArray: Array<PermissionInterface>,

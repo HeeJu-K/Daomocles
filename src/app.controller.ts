@@ -54,7 +54,7 @@ export class AppController {
     @Body() permissionArray: Array<PermissionInterface>,
   ): Promise<DAOInterface> {
     Logger.log('post /dao/permission');
-    return await this.appService.updateDAOPermission(
+    return await this.appService.newDAOPermission(
       params.address,
       params.daoID,
       permissionArray,
@@ -78,7 +78,7 @@ export class AppController {
         header.toLowerCase().replace('#', '').trim(),
       complete: (results) => results.data,
     });
-    return await this.appService.updateDAOPermission(
+    return await this.appService.newDAOPermission(
       params.address,
       params.daoID,
       parsedCSV.data,
