@@ -62,9 +62,7 @@ export default function Home() {
         ]
     }
 
-    console.log("data decode", daoTestData, Object.keys(daoTestData).length)
     const DAONum = Object.keys(daoTestData).length;
-    console.log("data decode length", DAONum)
     // const { isMember, isStakeholder, loading } = useData();
     // if (loading) return <div>Loading...</div>;
     return (

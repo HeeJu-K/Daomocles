@@ -15,7 +15,6 @@ export default function Home() {
     }
     interface TokenAssetsInterface {
         assets: Array<TokenAssets>;
-
     }
     const queryParameters = new URLSearchParams(window.location.search)
     const daoname = queryParameters.get("DAO")
