@@ -7,17 +7,19 @@ import { DAOBriefSchema, DAOBriefDocument } from './app.schema';
 @Injectable()
 export class AppService {
   constructor(
-    @InjectModel(DAOBriefSchema.name)
+    @InjectModel(DAOBriefDocument.name)
     private daoBriefModel: Model<DAOBriefDocument>,
   ) {}
 
   async createDAO(daoBriefInfo: DAOBriefInterface): Promise<DAOBriefInterface> {
     const daoBrief = new this.daoBriefModel({
       name: daoBriefInfo.name,
+      logoURL: daoBriefInfo.logoURL,
+      introduction: daoBriefInfo.introduction,
+      treasuryAddress: daoBriefInfo.treasuryAddress,
+      _id: new Types.ObjectId(),
     });
-    const createdDAO = new this.daoBriefModel(daoBriefInfo);
-    createdDAO._id = new Types.ObjectId();
-    return createdDAO.save();
+    return daoBrief.save();
   }
 
   async findAll(): Promise<DAOBriefInterface[]> {

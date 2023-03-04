@@ -26,7 +26,6 @@ export interface DAOInterface {
 }
 
 export interface DAOBriefInterface {
-  _id: string;
   logoURL: string;
   name: string;
   introduction: string;
