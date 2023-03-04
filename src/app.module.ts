@@ -3,7 +3,14 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DAOBrief, DAOBriefDocument, DAOBriefSchema } from './app.schema';
+import {
+  DAO,
+  DAOSchema,
+  DAOBrief,
+  DAOBriefSchema,
+  USER,
+  USERSchema,
+} from './app.schema';
 import { config } from 'dotenv';
 config(); // load environment variables
 
@@ -11,7 +18,8 @@ config(); // load environment variables
   imports: [
     MongooseModule.forRoot(process.env.MONGODB_URI),
     MongooseModule.forFeature([
-      { name: DAOBrief.name, schema: DAOBriefSchema },
+      { name: DAO.name, schema: DAOSchema },
+      { name: USER.name, schema: USERSchema },
     ]),
     ConfigModule.forRoot({
       isGlobal: true, // optional

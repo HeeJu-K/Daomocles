@@ -5,6 +5,12 @@ export enum Network {
   MANTLE,
 }
 
+export enum AccessType {
+  Admin,
+  SubAdmin,
+  Member,
+}
+
 export interface TokenInterface {
   name: string;
   address: string;
@@ -14,7 +20,6 @@ export interface TokenInterface {
 }
 
 export interface DAOInterface {
-  _id: string;
   logoURL: string;
   name: string;
   introduction: string;
@@ -26,15 +31,15 @@ export interface DAOInterface {
 }
 
 export interface DAOBriefInterface {
+  id: string;
   logoURL: string;
   name: string;
   introduction: string;
   treasuryAddress: string;
+  access: AccessType;
 }
 
 export interface UserInfoInterface {
   userAddress: string;
-  adminList: Array<DAOBriefInterface>;
-  subAdminList: Array<DAOBriefInterface>;
-  memberList: Array<DAOBriefInterface>;
+  daoList: Array<DAOBriefInterface>;
 }
