@@ -145,8 +145,11 @@ export class AppService {
     return this.daoModel.find().exec();
   }
 
-  async getUserInfo(): Promise<UserInfoInterface> {
-    // get mongo data base and process into dao brief data structure and return
-    return null;
+  async getUserInfo(userAddress: string): Promise<UserInfoInterface> {
+    // query for user from database
+    const existingUser = await this.userModel.findOne({
+      userAddress: userAddress,
+    });
+    return existingUser;
   }
 }

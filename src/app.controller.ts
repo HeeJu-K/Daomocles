@@ -9,7 +9,7 @@ export class AppController {
   @Get('/:address/')
   async getUserInfoInterface(@Param() params): Promise<UserInfoInterface> {
     Logger.log('/getUserInfoInterface');
-    return await this.appService.getUserInfo();
+    return await this.appService.getUserInfo(params.address);
   }
 
   @Post(':address/create-dao')
