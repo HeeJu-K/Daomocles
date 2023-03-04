@@ -9,6 +9,25 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
     const queryParameters = new URLSearchParams(window.location.search)
     const daoname = queryParameters.get("DAO")
+    interface Permissions {
+        accountAddress: string;
+        permission: string;
+    }
+    interface PermissionsInterface {
+        permissions: Array<Permissions>;
+    }
+    const permissionsList: PermissionsInterface = {
+        permissions: [
+            {
+                accountAddress: "0x8923rhjkfwen23r",
+                permission: "admin",
+            },
+            {
+                accountAddress: "0x284hfcqe8",
+                permission: "member",
+            }
+        ]
+    }
     return (
         <div className={styles.container}>
             <Head>
@@ -22,24 +41,41 @@ export default function Home() {
             <SettingNavbar
                 daoname={daoname}
             />
-            <div className={styles.settings} style={{ height: "450px", marginBottom: "3rem" }}>
+            <div className={styles.settings} style={{ height: "auto", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid}>
+                    {permissionsList.permissions.map((item) => {
+                        return <>
+                            <div > Account Address</div>
+                            <div >{item.accountAddress}</div>
+                            <div > Permissions</div>
+                            <div >{item.permission}</div>
+                            <div className="divider" style={{ color: "white" }}></div>
+                            <div className="divider"></div>
 
-                    <div className={styles.one}>Account Address</div>
-                    <input className={styles.two}></input>
-                    <div className={styles.three}>Permissions</div>
-                    <div className={styles.four}>
-                        <select name="Networks" id="networks">
-                            <option value="Ethereum">Owner</option>
-                            <option value="Polygon">Editor</option>
-                            <option value="Mantle">Viewer</option>
+
+                        </>
+                    })}
+                    <div style={{ marginTop: "8px" }}>Account Address</div>
+                    <input type="text" id="default-input" style={{ marginLeft: "3px" }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></input>
+                    <div style={{ marginTop: "8px" }}>Permissions</div>
+                    <div >
+                        <select className="px-3 py-2 h-3/1 bg-gray-50 border border-black rounded-xl text-black" name="Permissions" id="permissions">
+                            <option value="Ethereum">admin</option>
+                            <option value="Polygon">subadmin</option>
+                            <option value="Mantle">member</option>
                         </select>
                     </div>
-                    <div className={styles.seven}>+ Add Another Token</div>
                 </div>
-                <div>
-                    <button className={styles.confirmbutton}>Confirm</button>
-                </div>
+                <button
+                    className={styles.confirmbutton}
+                    style={{ width: "210px" }}
+                    onClick={() => {
+                        // onAddToken()
+                        console.log("button clicked")
+                    }}
+                >
+                    + Add Another Instance
+                </button>
             </div>
         </div>
     );

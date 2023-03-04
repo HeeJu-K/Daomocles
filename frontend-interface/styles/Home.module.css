@@ -192,8 +192,6 @@
   grid-area: footer;
 }
 
-
-
 /* for chart card */
 .chartContainer {
   margin-top: 80px;
@@ -264,72 +262,7 @@
   /* grid-template-columns: repeat(3, 1fr); */
   /* gap: 20px; */
 }
-/* 
-.one {
-  width: 100%;
-  grid-column: 1;
-  grid-row: 1;
-  height: 30px;
-}
 
-.two {
-  grid-column: 2;
-  grid-row: 1;
-  height: 30px;
-
-}
-
-.three {
-  grid-column: 1;
-  grid-row: 2;
-  align-self: start;
-  height: 30px;
-  margin-top: 8px;
-}
-
-.four {
-  grid-column: 2;
-  grid-row: 2;
-  height: 38px;
-}
-
-.five {
-  grid-column: 1;
-  grid-row: 3;
-  height: 30px;
-}
-
-.six {
-  grid-column: 2;
-  grid-row: 3;
-  height: 30px;
-}
-
-.seven {
-  grid-column: 1;
-  grid-row: 4;
-  width: 280%;
-  margin-left: 1px;
-  border: 0.5px solid;
-  color: gray;
-  background-color: white;
-}
-.eight {
-  grid-column: 1;
-  grid-row: 5;
-  height: 30px;
-}
-.nine {
-  grid-column: 1;
-  grid-row: 7;
-  height: 30px;
-  margin-top: 8px;
-}
-.ten {
-  grid-column: 2;
-  grid-row: 7;
-  height: 30px;
-} */
 
 
 .longinput {
