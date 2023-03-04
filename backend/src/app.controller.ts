@@ -139,4 +139,17 @@ export class AppController {
       newToken,
     );
   }
+
+  @Post(':address/:daoID/token/delete')
+  async removeToken(
+    @Param() params,
+    @Body() deleteToken: TokenInterface,
+  ): Promise<Array<TokenInterface>> {
+    Logger.log('post dao/token/delete');
+    return await this.appService.removeToken(
+      params.address,
+      params.daoID,
+      deleteToken,
+    );
+  }
 }

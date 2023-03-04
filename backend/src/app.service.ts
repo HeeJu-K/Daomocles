@@ -338,8 +338,29 @@ export class AppService {
     }
   }
 
-  // async removeToken(
-  //   userAddress: string,
-  //   daoID: string,
-  // ): Promise<Array<TokenInterface>> {}
+  async removeToken(
+    userAddress: string,
+    daoID: string,
+    deleteToken: TokenInterface,
+  ): Promise<Array<TokenInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    if (existingDao.admin.includes(userAddress)) {
+      const index = findTokenListKeyByToken(
+        existingDao.tokens,
+        deleteToken.address,
+        deleteToken.network,
+      );
+      if (index > -1) {
+        existingDao.tokens.splice(index, 1);
+        const result = await existingDao.save();
+        return result.tokens;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
 }
