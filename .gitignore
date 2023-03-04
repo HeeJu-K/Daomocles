@@ -41,7 +41,7 @@ frontend-interface/arweave-key.json
 # compiled output
 backend/dist
 backend/node_modules
-backend/tmp
+backend/tmp/*
 
 # Logs
 backend/logs
