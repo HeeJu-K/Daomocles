@@ -3,17 +3,87 @@ import { useState } from "react";
 import Navbar from "../components/navbar";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
+import ReactModal from 'react-modal';
 
 export default function Home() {
   // const { loading, account, createStakeholder, currentBal } = useData();
   const [val, setVal] = useState("");
   let daoname = ""
   let daoaccess = ""
-
   if (typeof window !== "undefined") {
     const queryParameters = new URLSearchParams(window.location.search)
     daoname = queryParameters.get("DAO")
     daoaccess = queryParameters.get("permission")
+  }
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  interface TableEntryInterface {
+    name: string;
+    details: string;
+    label: string;
+    network: string;
+    asset: number;
+    value: number;
+    type: string;
+    time: string;
+  }
+  const tmpData: Array<TableEntryInterface> = [
+    {
+      name: "hackathon",
+      details: "hackathon prize money",
+      label: "host",
+      network: "137",
+      asset: 68301,
+      value: 60000,
+      type: "",
+      time: "2021-08-04",
+    },
+    {
+      name: "Fair",
+      details: "club fair fees for recuiting",
+      label: "host",
+      network: "5000",
+      asset: 28712,
+      value: 217,
+      type: "",
+      time: "2022-03-07",
+    },
+    {
+      name: "Flight",
+      details: "Flight ticket to Eth Denver",
+      label: "attend",
+      network: "1",
+      asset: 14,
+      value: 18000,
+      type: "",
+      time: "2023-02-17",
+    },
+    {
+      name: "",
+      details: "",
+      label: "",
+      network: "5000",
+      asset: 14132,
+      value: 100,
+      type: "",
+      time: "2023-02-21",
+    },
+    {
+      name: "",
+      details: "",
+      label: "",
+      network: "1",
+      asset: 12092,
+      value: 7,
+      type: "",
+      time: "2023-02-23",
+    },
+  ]
+  const [editState, setEditState] = useState(Array.from({ length: tmpData.length }, () => false));
+
+  function closeModal() {
+    setIsEdit(false);
   }
   // if (loading) {
   //   return (
@@ -41,37 +111,193 @@ export default function Home() {
       <Navbar
         daoname={daoname}
         daoaccess={daoaccess}
-      />      
-      <main className="w-screen flex py-4 flex-grow justify-center">
+      />
+      <main className="w-full flex py-4 flex-grow justify-center">
         {/* <div className="w-1/3 border-2 border-blue-600 rounded-xl p-3 mt-10 h-full">
           <div className="flex flex-col justify-center"> */}
         <div className={styles.incomingoutgoing}>
-
-          <p className="my-2">
-            Current Balance :{" "}
-            <span className="text-lg font-bold text-blue-600">
-              {/* {currentBal} MATIC */}
-            </span>
-          </p>
-          <input
-            type="search"
-            name="q"
-            value={val}
-            onChange={(e) => setVal(e.target.value)}
-            className="my-5 w-full py-3 px-3 text-base text-gray-700 bg-gray-100 rounded-md focus:outline-none"
-            placeholder="Amount in MATIC"
-            autoComplete="off"
-          />
-          <button
-            className="px-3 py-2 rounded-xl bg-blue-600 text-white"
-          // onClick={() => {
-          //   createStakeholder(val).then(() => {
-          //     setVal("");
-          //   });
-          // }}
+          <ReactModal
+            className={styles.editmodal}
+            isOpen={isEdit}
+            onRequestClose={closeModal}
           >
-            Send
-          </button>
+            <table className="table-fixed w-full border-white border">
+              <thead className="border-white border max-w-xs">
+                <tr>
+                  <th>Item Name</th>
+                  <th>Descriptions</th>
+                  <th>Label</th>
+                  <th>Network</th>
+                  <th>Asset</th>
+                  <th>Value</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody className="mt-4 max-w-xs">
+                {tmpData.map((item, key) => {
+                  return (
+                    <tr>
+                      <td>
+                        {!item.name && isEdit ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleNameChange}
+                            type="text" id={"name" + key.toString()}>
+                          </input>
+                          : <span>{item.name}</span>
+                        }</td>
+                      <td>
+                        {!item.details && isEdit ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleDescriptionChange}
+                            type="text" id={"detail" + key.toString()}>
+                          </input>
+                          : <span>{item.details}</span>
+                        }
+                      </td>
+                      <td>
+                        {!item.label && isEdit ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleLabelChange}
+                            type="text" id={"label" + key.toString()}>
+                          </input>
+                          : <span>{item.label}</span>
+                        }
+                      </td>
+
+                      <td>{item.network}</td>
+                      <td>{item.asset}</td>
+                      <td>{item.value}</td>
+                      <td>{item.time}</td>
+                    </tr>)
+                })}
+
+              </tbody>
+            </table>
+            <button className={styles.confirmbutton} style={{ marginLeft: "40%" }}>Confirm</button>
+          </ReactModal>
+          <p className="mt-4 w-full flex flex-wrap items-center justify-between">
+              <div>
+                Month &nbsp;
+                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
+                  <option value="Jan">Jan</option>
+                  <option value="Feb">Feb</option>
+                  <option value="Mar">Mar</option>
+                  <option value="Apr">Apr</option>
+                  <option value="May">May</option>
+                  <option value="Jun">Jun</option>
+                  <option value="Jul">Jul</option>
+                  <option value="Aug">Aug</option>
+                  <option value="Sep">Sep</option>
+                  <option value="Oct">Oct</option>
+                  <option value="Nov">Nov</option>
+                  <option value="Dec">Dec</option>
+                </select>
+
+                &emsp; Tags &nbsp;
+                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Labels" id="labels">
+                  <option value="Marketing">Marketing</option>
+                  <option value="Contribution">Contribution</option>
+                  <option value="Grant">Grant</option>
+                </select>
+                &emsp;
+
+                <button
+                  className={styles.tablebutton}
+                  style={{ width: "85px" }}
+                  type="submit"
+                  name="search-button"
+                  id="search-button"
+                >
+                  Search
+                </button>
+              </div>
+
+              <div>
+                <button
+                  className={styles.tablebutton}
+                  style={{ width: "60px" }}
+                  type="submit"
+                  name="search-button"
+                  id="search-button"
+                  onClick={() => {
+                    // handleDummy()
+                    if (isEdit) {
+                      setIsEdit(false)
+                    } else {
+                      setIsEdit(true)
+                    }
+
+                  }}
+                >
+                  {isEdit ? <span>Save</span> : <span>Edit</span>}
+                </button>
+              </div>
+
+            </p>
+
+            <p className="mt-4 flex flex-col justify-center" id="table">
+              <table className="table-fixed border-white border">
+                <thead className="border-white border max-w-xs">
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Descriptions</th>
+                    <th>Label</th>
+                    <th>Network</th>
+                    <th>Asset</th>
+                    <th>Value</th>
+                    <th>Time</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody className="mt-4 max-w-xs">
+                  {tmpData.map((item, key) => {
+                    return (
+                      <tr>
+                        <td>
+                          {/* {key == } */}
+                          {!item.name && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleNameChange}
+                              type="text" id={"name" + key.toString()}>
+                            </input>
+                            : <span>{item.name}</span>
+                          }</td>
+                        <td>
+                          {!item.details && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleDescriptionChange}
+                              type="text" id={"detail" + key.toString()}>
+                            </input>
+                            : <span>{item.details}</span>
+                          }
+                        </td>
+                        <td>
+                          {!item.label && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleLabelChange}
+                              type="text" id={"label" + key.toString()}>
+                            </input>
+                            : <span>{item.label}</span>
+                          }
+                        </td>
+
+                        <td>{item.network}</td>
+                        <td>{item.asset}</td>
+                        <td>{item.value}</td>
+                        <td>{item.time}</td>
+                       
+                      </tr>)
+                  })}
+
+                </tbody>
+              </table>
+            </p>
           {/* </div>
         </div> */}
         </div>

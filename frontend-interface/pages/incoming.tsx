@@ -4,22 +4,81 @@ import Navbar from "../components/navbar";
 // import { ProposalList } from "../components/proposalList";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
+import ReactModal from 'react-modal';
 
 export default function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
+  const [name, setName] = useState("");
+  const [label, setLabel] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("Edit");
   const [recipient, setRecipient] = useState("");
+  let fixedData = []
+  const [fixed, setFixed] = useState({})
   const [image, setImage] = useState<File | null>();
   let daoname = ""
   let daoaccess = ""
   if (typeof window !== "undefined") {
-      const queryParameters = new URLSearchParams(window.location.search)
-      daoname = queryParameters.get("DAO")
-      daoaccess = queryParameters.get("permission")
+    const queryParameters = new URLSearchParams(window.location.search)
+    daoname = queryParameters.get("DAO")
+    daoaccess = queryParameters.get("permission")
   }
+  interface TableEntryInterface {
+    name: string;
+    details: string;
+    label: string;
+    network: string;
+    asset: number;
+    value: number;
+    type: string;
+    time: string;
+  }
+  const tmpData: Array<TableEntryInterface> = [
+      {
+        name: "Jimmy",
+        details: "Donation by Jimmy for Hackathon",
+        label: "donation",
+        network: "137",
+        asset: 1428,
+        value: 1000,
+        type: "",
+        time: "2022-10-04",
+      },
+      {
+        name: "Won Eth SF",
+        details: "1st prize at Main track",
+        label: "hackathon",
+        network: "1",
+        asset: 20,
+        value: 3472,
+        type: "",
+        time: "2022-11-25",
+      },
+      {
+        name: "Brian",
+        details: "Donation by Jimmy for club recruiting",
+        label: "donation",
+        network: "5000",
+        asset: 427,
+        value: 300,
+        type: "",
+        time: "2022-12-07",
+      },
+      {
+        name: "",
+        details: "",
+        label: "",
+        network: "5000",
+        asset: 18248,
+        value: 140,
+        type: "",
+        time: "2023-01-16",
+      },
+    ]
+
+  const [editState, setEditState] = useState(Array.from({ length: tmpData.length }, () => false));
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,6 +107,58 @@ export default function Home() {
     setImage(null);
   };
 
+  // const handleNameChange = (e) => {
+  //   // setName(e.target.value);
+  //   fixedData = ["name", e.target.value, e.currentTarget.id]
+  //   setFixed({
+  //     fixed,
+  //     fixedData,
+  //   })
+  //   console.log("fixed data", fixed)
+  // }
+  // const handleDescriptionChange = (e) => {
+  //   // setDescription(e.target.value);
+  //   fixedData.push(["detail", e.target.value, e.currentTarget.id])
+  //   setFixed({
+  //     fixed,
+  //     fixedData,
+  //   })
+  // }
+  // const handleLabelChange = (e) => {
+  //   setLabel(e.target.value)
+  //   fixedData.push(["label", e.target.value, e.currentTarget.id])
+  //   setFixed({
+  //     fixed,
+  //     fixedData,
+  //   })
+  // }
+  const handleDummy = (e) => {
+    console.log("new table test", document.getElementById('name0') as HTMLInputElement)
+    // console.log("new table data", fixed)
+    let i = 0
+    let tmp = [[]]
+    // for (i=0; i<tmpData.length; i++) {
+    //   tmp.push([
+    //     ['name', (document.getElementById('name'+i.toString()) as HTMLInputElement).value, i],
+    //     ['detail', (document.getElementById('detail'+i.toString()) as HTMLInputElement).value, i],
+    //     ['label', (document.getElementById('label'+i.toString()) as HTMLInputElement).value, i],
+    //   ])
+    // }
+    console.log("new table data", tmp)
+    const input = document.getElementById('input-field') as HTMLInputElement;
+
+
+    if (isEdit) {
+      // save pressed
+      console.log("new table data", fixed)
+    }
+  }
+  function closeModal() {
+    setIsEdit(false);
+  }
+
+  console.log("new table edit", isEdit)
+
   // const { isMember, isStakeholder, loading } = useData();
   // if (loading) return <div>Loading...</div>;
   return (
@@ -61,13 +172,74 @@ export default function Home() {
         daoname={daoname}
         daoaccess={daoaccess}
       />
-      {/* {isMember && ( */}
-      {true && (
         <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
           {/* <div className="flex flex-col justify-center"> */}
           <div className={styles.incomingoutgoing}>
+            <ReactModal
+              className={styles.editmodal}
+              isOpen={isEdit}
+              onRequestClose={closeModal}
+            >
+              <table className="table-fixed w-full border-white border">
+                <thead className="border-white border max-w-xs">
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Descriptions</th>
+                    <th>Label</th>
+                    <th>Network</th>
+                    <th>Asset</th>
+                    <th>Value</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody className="mt-4 max-w-xs">
+                  {tmpData.map((item, key) => {
+                    return (
+                      <tr>
+                        <td>
+                          {!item.name && isEdit ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleNameChange}
+                              type="text" id={"name" + key.toString()}>
+                            </input>
+                            : <span>{item.name}</span>
+                          }</td>
+                        <td>
+                          {!item.details && isEdit ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleDescriptionChange}
+                              type="text" id={"detail" + key.toString()}>
+                            </input>
+                            : <span>{item.details}</span>
+                          }
+                        </td>
+                        <td>
+                          {!item.label && isEdit ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleLabelChange}
+                              type="text" id={"label" + key.toString()}>
+                            </input>
+                            : <span>{item.label}</span>
+                          }
+                        </td>
+
+                        <td>{item.network}</td>
+                        <td>{item.asset}</td>
+                        <td>{item.value}</td>
+                        <td>{item.time}</td>
+                      </tr>)
+                  })}
+
+                </tbody>
+              </table>
+              <button className={styles.confirmbutton} style={{marginLeft:"40%"}}>Confirm</button>
+            </ReactModal>
+
             {/* <span className="text-xl text-center">Create a new Proposal</span> */}
-            <p className="mt-4 w-full flex flex-wrap items-center justify-between">
+            <p className="mt-4 w-full flex flex-grow items-center justify-between">
               <div>
                 Month &nbsp;
                 <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
@@ -95,7 +267,7 @@ export default function Home() {
 
                 <button
                   className={styles.tablebutton}
-                  style={{width:"85px"}}
+                  style={{ width: "85px" }}
                   type="submit"
                   name="search-button"
                   id="search-button"
@@ -107,12 +279,21 @@ export default function Home() {
               <div>
                 <button
                   className={styles.tablebutton}
-                  style={{width:"60px"}}
+                  style={{ width: "60px" }}
                   type="submit"
                   name="search-button"
                   id="search-button"
+                  onClick={() => {
+                    // handleDummy()
+                    if (isEdit) {
+                      setIsEdit(false)
+                    } else {
+                      setIsEdit(true)
+                    }
+
+                  }}
                 >
-                  Edit
+                  {isEdit ? <span>Save</span> : <span>Edit</span>}
                 </button>
               </div>
 
@@ -129,44 +310,59 @@ export default function Home() {
                     <th>Asset</th>
                     <th>Value</th>
                     <th>Time</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="mt-4 max-w-xs">
-                  <div>
-                    <tr>
-                      <td>name 1</td>
-                      <td>here is the description</td>
-                      <td>Marketing</td>
-                      <td>Eth</td>
-                      <td>eth</td>
-                      <td>13</td>
-                      <td>2023-03-02</td>
-                    </tr>
-                  </div>
-                  <tr>
-                    <td>name 1</td>
-                    <td>here is the description</td>
-                    <td>Marketing</td>
-                    <td>Eth</td>
-                    <td>eth</td>
-                    <td>13</td>
-                    <td>2023-03-02</td>
-                  </tr>
-                  <tr>
-                    <td>name 1</td>
-                    <td>here is the description</td>
-                    <td>Marketing</td>
-                    <td>Eth</td>
-                    <td>eth</td>
-                    <td>13</td>
-                    <td>2023-03-02</td>
-                  </tr>
+                  {tmpData.map((item, key) => {
+                    return (
+                      <tr>
+                        <td>
+                          {/* {key == } */}
+                          {!item.name && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleNameChange}
+                              type="text" id={"name" + key.toString()}>
+                            </input>
+                            : <span>{item.name}</span>
+                          }</td>
+                        <td>
+                          {!item.details && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleDescriptionChange}
+                              type="text" id={"detail" + key.toString()}>
+                            </input>
+                            : <span>{item.details}</span>
+                          }
+                        </td>
+                        <td>
+                          {!item.label && editState[key] ?
+                            <input
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                              // onChange={handleLabelChange}
+                              type="text" id={"label" + key.toString()}>
+                            </input>
+                            : <span>{item.label}</span>
+                          }
+                        </td>
+
+                        <td>{item.network}</td>
+                        <td>{item.asset}</td>
+                        <td>{item.value}</td>
+                        <td>{item.time}</td>
+                        
+                      </tr>)
+                  })}
+
                 </tbody>
               </table>
             </p>
+
           </div>
         </main>
-      )}
+   
     </div>
   );
 }

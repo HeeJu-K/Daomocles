@@ -6,12 +6,14 @@ import Navbar from "../components/navbar";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
 import { Row, Col } from 'antd';
-
+import THUBA from "../temp_assets/THUBA_logo.png";
+import Edu from "../temp_assets/EduDAO_logo.png";
+import Bit from "../temp_assets/bitDAO_logo.jpg";
 
 export default function Home() {
 
     interface DAOBriefInterface {
-        logoURL: string;
+        logoURL: StaticImageData;
         name: string;
         introduction: string;
         treasuryAddress: string;
@@ -29,35 +31,37 @@ export default function Home() {
         userAddress: "0x18928391",
         profileList: [
             {
-                // logoURL: "htp://.,..,.",
-                logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+                logoURL: THUBA,
+                // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
                 name: "THUBA DAO",
                 introduction: "introduction here",
                 treasuryAddress: "0xjasiejif",
                 access: "admin"
             },
             {
+                logoURL: Bit,
                 // logoURL: "htp://.,..,.",
-                logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+                // logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
                 name: "BIT DAO",
-                introduction: "introduction here",
-                treasuryAddress: "0xjasiejif",
-                access: "admin"
-            },
-            {
-                logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
-                name: "Something DAO",
                 introduction: "introduction here",
                 treasuryAddress: "0xjasiejif",
                 access: "subadmin"
             },
             {
-                logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
-                name: "Brian DAO",
+                logoURL: Edu,
+                // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+                name: "Edu DAO",
                 introduction: "introduction here",
                 treasuryAddress: "0xjasiejif",
                 access: "member"
-            }
+            },
+            // {
+            //     logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+            //     name: "Brian DAO",
+            //     introduction: "introduction here",
+            //     treasuryAddress: "0xjasiejif",
+            //     access: "member"
+            // }
         ]
     }
     console.log("daotest data", daoTestData.profileList)
@@ -100,14 +104,14 @@ export default function Home() {
 
                                     <div>
                                         <span style={{ height: "125px", display: "block", textAlign: "center" }}>
-                                            <img src={item.logoURL} style={{ height: "125px", borderRadius: "15px", margin: "auto" }} />
+                                            <img src={item.logoURL.src} style={{ height: "125px", borderRadius: "15px", margin: "auto" }} />
                                         </span>
 
-                                        <div style={{ float: "left", marginLeft: "28%", textAlign: "center", verticalAlign: "middle" }}>
+                                        <div style={{ float: "left", marginLeft: "24%", textAlign: "center", verticalAlign: "middle" }}>
                                             {item.name}
-                                            {item.access == "admin" ? (<div className={styles.DAOaccess} style={{ backgroundColor: "#CBAB8D", verticalAlign: "middle" }}>{item.access}</div>)
-                                                : item.access == "subadmin" ? (<div className={styles.DAOaccess} style={{ backgroundColor: "#84384a" }}>{item.access}</div>)
-                                                    : (<div className={styles.DAOaccess} style={{ backgroundColor: "#517F57" }}>{item.access}</div>)}
+                                            {item.access == "admin" ? (<div className={styles.DAOaccess} style={{ width:"70px", backgroundColor: "#CBAB8D", verticalAlign: "middle" }}>{item.access}</div>)
+                                                : item.access == "subadmin" ? (<div className={styles.DAOaccess} style={{  width:"90px",backgroundColor: "#84384a" }}>{item.access}</div>)
+                                                    : (<div className={styles.DAOaccess} style={{ width:"80px", backgroundColor: "#517F57" }}>{item.access}</div>)}
                                         </div>
 
                                     </div>

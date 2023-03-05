@@ -48,9 +48,9 @@ export default function Home() {
   let daoname = ""
   let daoaccess = ""
   if (typeof window !== "undefined") {
-      const queryParameters = new URLSearchParams(window.location.search)
-      daoname = queryParameters.get("DAO")
-      daoaccess = queryParameters.get("permission")
+    const queryParameters = new URLSearchParams(window.location.search)
+    daoname = queryParameters.get("DAO")
+    daoaccess = queryParameters.get("permission")
   }
 
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -126,7 +126,7 @@ export default function Home() {
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
         backgroundColor: '#2648A1',
       },
-      
+
       {
         fill: false,
         label: 'Dataset 3',
@@ -137,7 +137,78 @@ export default function Home() {
       },
     ],
   };
-
+  interface TableEntryInterface {
+    name: string;
+    details: string;
+    label: string;
+    network: string;
+    asset: number;
+    value: number;
+    type: string;
+    time: string;
+  }
+  const tmpData: Array<TableEntryInterface> = [
+    {
+      name: "hackathon",
+      details: "hackathon prize money",
+      label: "host",
+      network: "137",
+      asset: 68301,
+      value: 60000,
+      type: "",
+      time: "2021-08-04",
+    },
+    {
+      name: "Fair",
+      details: "club fair fees for recuiting",
+      label: "host",
+      network: "5000",
+      asset: 28712,
+      value: 217,
+      type: "",
+      time: "2022-03-07",
+    },
+    {
+      name: "Flight",
+      details: "Flight ticket to Eth Denver",
+      label: "attend",
+      network: "1",
+      asset: 14,
+      value: 18000,
+      type: "",
+      time: "2023-02-17",
+    },
+    {
+      name: "Jimmy",
+      details: "Donation by Jimmy for Hackathon",
+      label: "donation",
+      network: "137",
+      asset: 1428,
+      value: 1000,
+      type: "",
+      time: "2022-10-04",
+    },
+    {
+      name: "Won Eth SF",
+      details: "1st prize at Main track",
+      label: "hackathon",
+      network: "1",
+      asset: 20,
+      value: 3472,
+      type: "",
+      time: "2022-11-25",
+    },
+    {
+      name: "Brian",
+      details: "Donation by Jimmy for club recruiting",
+      label: "donation",
+      network: "5000",
+      asset: 427,
+      value: 300,
+      type: "",
+      time: "2022-12-07",
+    },
+  ]
   return (
     <div className={styles.container}>
       <Head>
@@ -146,10 +217,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar
-        daoname={daoname} 
+        daoname={daoname}
         daoaccess={daoaccess}
       />
-      <div style={{ marginTop: "2rem", width: "70%" }}>
+      <div style={{ marginTop: "2rem", width: "80%" }}>
         <div className={styles.overview}>
           {/* <div className={styles.overviewassets}> */}
           <div className="w-1/3 ">
@@ -201,8 +272,38 @@ export default function Home() {
       <div style={{ width: "600px", borderRadius: "15px" }}>
         <Line options={areaOptions} data={lineData} />
       </div>
+      <p className="mt-4 flex flex-col justify-center" id="table">
+        <table className="table-fixed border-white border" style={{width:"90%", marginLeft:"5%", marginBottom:"30px"}}>
+          <thead className="border-white border max-w-xs">
+            <tr>
+              <th>Item Name</th>
+              <th>Descriptions</th>
+              <th>Label</th>
+              <th>Network</th>
+              <th>Asset</th>
+              <th>Value</th>
+              <th>Time</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody className="mt-4 max-w-xs">
+            {tmpData.map((item, key) => {
+              return (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>{item.details}</td>
+                  <td>{item.label}</td>
+                  <td>{item.network}</td>
+                  <td>{item.asset}</td>
+                  <td>{item.value}</td>
+                  <td>{item.time}</td>
+                 
+                </tr>)
+            })}
 
-      {true && <CreateMember />}
+          </tbody>
+        </table>
+      </p>
       {/* {isMember && <ProposalList />} */}
     </div >
   );

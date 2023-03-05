@@ -24,11 +24,15 @@ export default function Home() {
     const permissionsList: PermissionsInterface = {
         permissions: [
             {
-                accountAddress: "0x8923rhjkfwen23r",
+                accountAddress: "THUBA.eth",
                 permission: "admin",
             },
             {
-                accountAddress: "0x284hfcqe8",
+                accountAddress: "eduDAO.eth",
+                permission: "subadmin",
+            },
+            {
+                accountAddress: "bitDAO.bit",
                 permission: "member",
             }
         ]

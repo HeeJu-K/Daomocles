@@ -1,8 +1,9 @@
 import Head from "next/head";
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Navbar from "../components/navbar";
 import SettingNavbar from "../components/settingnavbar";
 
+import { ImageUploader } from 'react-image-uploader';
 // import { ProposalList } from "../components/proposalList";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
@@ -16,6 +17,16 @@ export default function Home() {
         daoname = queryParameters.get("DAO")
         daoaccess = queryParameters.get("permission")
     }
+    const [selectedImage, setSelectedImage] = useState();
+    const imageChange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImage(e.target.files[0]);
+        }
+    };
+    const removeSelectedImage = () => {
+        setSelectedImage();
+    };
+
     return (
         <div className={styles.container}>
             <Head>
@@ -31,11 +42,29 @@ export default function Home() {
                 daoname={daoname}
                 daoaccess={daoaccess}
             />
-            <div className={styles.settings} style={{ height: "450px", marginBottom: "3rem" }}>
+            <div className={styles.settings} style={{ height: "100%", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid} style={{ gridTemplateColumns: "50% 50%" }}>
                     <div>Upload DAO Logo</div>
                     <div>
-                        {/* <FileUpload></FileUpload> */}
+                        <input
+                            accept="image/*"
+                            type="file"
+                            onChange={imageChange}
+                        />
+
+                        {selectedImage && (
+                            <div className={ styles.preview}>
+                                <img
+                                    src={URL.createObjectURL(selectedImage)}
+                                    className={ styles.image }
+                                    style={{width:"100px"}}
+                                    alt="Thumb"
+                                />
+                                <button onClick={removeSelectedImage} className={styles.delete}>
+                                    Remove This Image
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     <div style={{ marginTop: "8px" }}>DAO Name</div>

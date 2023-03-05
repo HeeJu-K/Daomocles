@@ -2,6 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import Navbar from "../components/navbar";
+import { ImageUploader } from 'react-image-uploader';
+
 // import { ProposalList } from "../components/proposalList";
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
@@ -64,6 +66,15 @@ export default function Home() {
     const handleDAOSubmit = () => {
         console.log(" in handle submit function")
     }
+    const [selectedImage, setSelectedImage] = useState();
+    const imageChange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImage(e.target.files[0]);
+        }
+    };
+    const removeSelectedImage = () => {
+        setSelectedImage();
+    };
 
     // const { isMember, isStakeholder, loading } = useData();
     // if (loading) return <div>Loading...</div>;
@@ -83,7 +94,25 @@ export default function Home() {
                     <div className={styles.settingsgrid} style={{ gridTemplateColumns: "50% 50%" }}>
                         <div>Upload DAO Logo</div>
                         <div>
-                            {/* <FileUpload></FileUpload> */}
+                            <input
+                                accept="image/*"
+                                type="file"
+                                onChange={imageChange}
+                            />
+
+                            {selectedImage && (
+                                <div className={styles.preview}>
+                                    <img
+                                        src={URL.createObjectURL(selectedImage)}
+                                        className={styles.image}
+                                        style={{ width: "100px" }}
+                                        alt="Thumb"
+                                    />
+                                    <button onClick={removeSelectedImage} className={styles.delete}>
+                                        Remove This Image
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         <div style={{ marginTop: "8px" }}>DAO Name</div>

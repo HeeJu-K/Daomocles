@@ -9,7 +9,9 @@ import styles from "../styles/Home.module.css";
 // import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-
+import THUBA from "../temp_assets/THUBA_logo.png";
+import Edu from "../temp_assets/EduDAO_logo.png";
+import Bit from "../temp_assets/bitDAO_logo.jpg";
 
 function Navbar(props) {
   const {
@@ -59,35 +61,30 @@ function Navbar(props) {
     userAddress: "0x18928391",
     profileList: [
       {
-        // logoURL: "htp://.,..,.",
-        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+        logoURL: THUBA,
+        // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
         name: "THUBA DAO",
         introduction: "introduction here",
         treasuryAddress: "0xjasiejif",
         access: "admin"
-      },
-      {
+    },
+    {
+        logoURL: Bit,
         // logoURL: "htp://.,..,.",
-        logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+        // logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
         name: "BIT DAO",
         introduction: "introduction here",
         treasuryAddress: "0xjasiejif",
-        access: "admin"
-      },
-      {
-        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
-        name: "Something DAO",
-        introduction: "introduction here",
-        treasuryAddress: "0xjasiejif",
         access: "subadmin"
-      },
-      {
-        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
-        name: "Brian DAO",
+    },
+    {
+        logoURL: Edu,
+        // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+        name: "Edu DAO",
         introduction: "introduction here",
         treasuryAddress: "0xjasiejif",
         access: "member"
-      }
+    },
     ]
   }
 
