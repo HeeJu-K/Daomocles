@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract daoTransactions is AccessControl  {
     bytes32 public constant ROLE_ADMIN = keccak256("ROLE_ADMIN");
-    mapping (uint256 => transactionDetails) inTransactions;
-    mapping (uint256 => transactionDetails) outTransactions;
+    mapping (uint256 => TransactionDetails) inTransactions;
+    mapping (uint256 => TransactionDetails) outTransactions;
     address public treasuryAddress;
 
     constructor(address walletAddress) {
@@ -15,21 +15,39 @@ contract daoTransactions is AccessControl  {
         treasuryAddress = walletAddress;
     }
 
-    struct transactionDetails {
+    struct TransactionDetails {
         string name;
-        uint description;
+        string description;
         string label;
     }
 
-    function updateTransactionsMapping(transactionDetails[] memory txndetails, uint256[] memory txnsHashes, bool isIn) public {
+    function updateTransactionsMapping(
+        string[] memory names, 
+        string[] memory descriptions,
+        string[] memory labels,
+        uint256[] memory txnsHashes, 
+        bool isIn
+    ) public {
         require(hasRole(ROLE_ADMIN, msg.sender), "Caller must have user role");
+        require(names.length == descriptions.length, "Name and Description Length not equal");
+        require(labels.length == descriptions.length, "Name and Description Length not equal");
         if (isIn) {
             for (uint8 i = 0; i < txnsHashes.length; i ++) {
-                inTransactions[txnsHashes[i]] = txndetails[i];
+                TransactionDetails memory data = TransactionDetails({
+                    name: names[i],
+                    description: descriptions[i],
+                    label:  labels[i]
+                });
+                inTransactions[txnsHashes[i]] = data;
             }
         } else {
             for (uint8 i = 0; i < txnsHashes.length; i ++) {
-                outTransactions[txnsHashes[i]] = txndetails[i];
+                TransactionDetails memory data = TransactionDetails({
+                    name: names[i],
+                    description: descriptions[i],
+                    label:  labels[i]
+                });
+                inTransactions[txnsHashes[i]] = data;
             }
         }
     }
