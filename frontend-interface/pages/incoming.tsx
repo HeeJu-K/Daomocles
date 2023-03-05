@@ -13,8 +13,11 @@ export default function Home() {
   const [editText, setEditText] = useState("Edit");
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
-  const queryParameters = new URLSearchParams(window.location.search)
-  const daoname = queryParameters.get("DAO")
+  let daoname = ""
+  if (typeof window !== "undefined") {
+    const queryParameters = new URLSearchParams(window.location.search)
+    daoname = queryParameters.get("DAO")
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -91,7 +94,7 @@ export default function Home() {
 
                 <button
                   className={styles.tablebutton}
-                  style={{width:"80px"}}
+                  style={{width:"85px"}}
                   type="submit"
                   name="search-button"
                   id="search-button"
@@ -103,7 +106,7 @@ export default function Home() {
               <div>
                 <button
                   className={styles.tablebutton}
-                  style={{width:"50px"}}
+                  style={{width:"60px"}}
                   type="submit"
                   name="search-button"
                   id="search-button"

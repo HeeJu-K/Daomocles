@@ -45,8 +45,11 @@ export default function Home() {
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
-  const queryParameters = new URLSearchParams(window.location.search)
-  const daoname = queryParameters.get("DAO")
+  let daoname = ""
+  if (typeof window !== "undefined") {
+    const queryParameters = new URLSearchParams(window.location.search)
+    daoname = queryParameters.get("DAO")
+  }
   // const name = queryParameters.get("name")
 
   console.log("get url params", daoname)
@@ -108,28 +111,29 @@ export default function Home() {
     labels,
     datasets: [
       {
-        fill: true,
-        label: 'Dataset 2',
+        fill: false,
+        label: 'Dataset 1',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: 'white',
+        borderColor: '#332E82',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        backgroundColor: '#B98BE8',
+        backgroundColor: '#332E82',
       },
       {
-        fill: true,
+        fill: false,
         label: 'Dataset 2',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: 'white',
+        borderColor: '#2648A1',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        backgroundColor: '#EC1C25',
+        backgroundColor: '#2648A1',
       },
+      
       {
-        fill: true,
-        label: 'Dataset 2',
+        fill: false,
+        label: 'Dataset 3',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: 'white',
+        borderColor: '#2873BA',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        backgroundColor: '#EC1C25',
+        backgroundColor: '#2873BA',
       },
     ],
   };

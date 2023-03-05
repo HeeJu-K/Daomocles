@@ -7,8 +7,11 @@ import SettingNavbar from "../components/settingnavbar";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-    const queryParameters = new URLSearchParams(window.location.search)
-    const daoname = queryParameters.get("DAO")
+    let daoname = ""
+    if (typeof window !== "undefined") {
+      const queryParameters = new URLSearchParams(window.location.search)
+      daoname = queryParameters.get("DAO")
+    }
     interface Permissions {
         accountAddress: string;
         permission: string;
