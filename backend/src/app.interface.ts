@@ -41,3 +41,14 @@ export interface PermissionInterface {
   userAddress: string;
   access: AccessType;
 }
+
+export interface TableEntryInterface {
+  name: string;
+  details: string;
+  label: string;
+  network: string;
+  asset: number;
+  value: number;
+  type: string;
+  time: string;
+}

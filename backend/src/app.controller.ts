@@ -16,7 +16,6 @@ import {
   UserInfoInterface,
   DAOBriefInterface,
   PermissionInterface,
-  DAOInterface,
   TokenInterface,
 } from './app.interface';
 import { readFileSync } from 'fs';

@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import {
   UserInfoInterface,
   DAOBriefInterface,
-  DAOInterface,
   AccessType,
   PermissionInterface,
   TokenInterface,
@@ -17,7 +16,6 @@ import {
   getDAOPermissionInList,
   getTokenSymbolFromNetwork,
 } from './app.helper';
-import axios from 'axios';
 
 @Injectable()
 export class AppService {
