@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/348fe5ca-63b1-4a9b-b533-60301c39b861/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/Daomocles",
+    "appService.deploySubpath": "frontend-interface"
+}
