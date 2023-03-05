@@ -46,13 +46,13 @@ export default function Home() {
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
   let daoname = ""
+  let daoaccess = ""
   if (typeof window !== "undefined") {
-    const queryParameters = new URLSearchParams(window.location.search)
-    daoname = queryParameters.get("DAO")
+      const queryParameters = new URLSearchParams(window.location.search)
+      daoname = queryParameters.get("DAO")
+      daoaccess = queryParameters.get("permission")
   }
-  // const name = queryParameters.get("name")
 
-  console.log("get url params", daoname)
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [data, setData] = useState({
     labels: labels,
@@ -147,6 +147,7 @@ export default function Home() {
       </Head>
       <Navbar
         daoname={daoname} 
+        daoaccess={daoaccess}
       />
       <div style={{ marginTop: "2rem", width: "80%" }}>
         <div className={styles.overview}>

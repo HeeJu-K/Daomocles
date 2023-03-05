@@ -6,15 +6,21 @@ import { useData } from "../contexts/dataContext";
 function SettingNavbar(props) {
   const {
     daoname,
+    daoaccess
   } = props
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
   const [daoName, setDaoName] = useState("")
-  console.log("settings nav bar daoname", daoname)
+  const [daoAccess, setDaoAccess] = useState("")
   useEffect(() => {
-    setDaoName(daoname)
-    console.log("router  router.asPath", router.asPath)
+    if (daoname == "undefined") {
+      setDaoName("")
+    }
+    else {
+      setDaoName(daoname)
+    }
+    setDaoAccess(daoaccess)
   }, []);
   // const [account, setAccount] = useState("");
 
@@ -54,20 +60,20 @@ function SettingNavbar(props) {
               <TabButton
                 title="Set Assets Information"
                 isActive={router.asPath.substring(0, 11) === "/assetsinfo"}
-                url={"/assetsinfo?DAO="+daoName}
+                url={"/assetsinfo?DAO="+daoName + '&permission=' + daoaccess}
               />
               {true && (
                 <TabButton
                   title="Edit Profiles"
                   isActive={router.asPath.substring(0, 13) === "/editprofiles"}
-                  url={"/editprofiles?DAO="+daoName}
+                  url={"/editprofiles?DAO="+daoName + '&permission=' + daoaccess}
                 />
               )}
               {true && (
                 <TabButton
                   title="Edit Permissions"
                   isActive={router.asPath.substring(0, 16) === "/editpermissions"}
-                  url={"/editpermissions?DAO="+daoName}
+                  url={"/editpermissions?DAO="+daoName + '&permission=' + daoaccess}
                 />
               )}
 

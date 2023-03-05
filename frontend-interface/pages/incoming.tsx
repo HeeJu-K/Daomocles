@@ -14,9 +14,11 @@ export default function Home() {
   const [recipient, setRecipient] = useState("");
   const [image, setImage] = useState<File | null>();
   let daoname = ""
+  let daoaccess = ""
   if (typeof window !== "undefined") {
-    const queryParameters = new URLSearchParams(window.location.search)
-    daoname = queryParameters.get("DAO")
+      const queryParameters = new URLSearchParams(window.location.search)
+      daoname = queryParameters.get("DAO")
+      daoaccess = queryParameters.get("permission")
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -57,6 +59,7 @@ export default function Home() {
       </Head>
       <Navbar
         daoname={daoname}
+        daoaccess={daoaccess}
       />
       {/* {isMember && ( */}
       {true && (
@@ -162,9 +165,7 @@ export default function Home() {
                   </tr>
                 </tbody>
               </table>
-
             </p>
-
           </div>
         </main>
       )}

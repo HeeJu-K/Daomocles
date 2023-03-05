@@ -8,9 +8,12 @@ export default function Home() {
   // const { loading, account, createStakeholder, currentBal } = useData();
   const [val, setVal] = useState("");
   let daoname = ""
+  let daoaccess = ""
+
   if (typeof window !== "undefined") {
     const queryParameters = new URLSearchParams(window.location.search)
     daoname = queryParameters.get("DAO")
+    daoaccess = queryParameters.get("permission")
   }
   // if (loading) {
   //   return (
@@ -37,6 +40,7 @@ export default function Home() {
       </Head>
       <Navbar
         daoname={daoname}
+        daoaccess={daoaccess}
       />      
       <main className="w-screen flex py-4 flex-grow justify-center">
         {/* <div className="w-1/3 border-2 border-blue-600 rounded-xl p-3 mt-10 h-full">

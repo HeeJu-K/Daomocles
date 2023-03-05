@@ -8,9 +8,11 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
     let daoname = ""
+    let daoaccess = ""
     if (typeof window !== "undefined") {
-      const queryParameters = new URLSearchParams(window.location.search)
-      daoname = queryParameters.get("DAO")
+        const queryParameters = new URLSearchParams(window.location.search)
+        daoname = queryParameters.get("DAO")
+        daoaccess = queryParameters.get("permission")
     }
     interface Permissions {
         accountAddress: string;
@@ -40,9 +42,11 @@ export default function Home() {
             </Head>
             <Navbar
                 daoname={daoname}
+                daoaccess={daoaccess}
             />
             <SettingNavbar
                 daoname={daoname}
+                daoaccess={daoaccess}
             />
             <div className={styles.settings} style={{ height: "auto", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid}>
