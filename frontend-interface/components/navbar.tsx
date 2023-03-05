@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useData } from "../contexts/dataContext";
 import "@fontsource/poppins";
+import styles from "../styles/Home.module.css";
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
+// import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+
 
 function Navbar(props) {
   const {
@@ -13,7 +20,7 @@ function Navbar(props) {
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
   const [daoName, setDaoName] = useState("")
-  const [disconnectVisible, setDisconnectVisible] = useState(false)
+
   // const [account, setAccount] = useState("");
 
   console.log("navbar daoname", daoname)
@@ -26,6 +33,60 @@ function Navbar(props) {
     }
     console.log("router ", router.asPath.substring(0, 6))
   }, []);
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+
+  interface DAOBriefInterface {
+    logoURL: string;
+    name: string;
+    introduction: string;
+    treasuryAddress: string;
+    access: string;
+  }
+
+  interface UserInfoInterface {
+    userAddress: string;
+    profileList: Array<DAOBriefInterface>;
+    // subAdminList: Array<DAOBriefInterface>;
+    // memberList: Array<DAOBriefInterface>;
+  }
+
+  const daoTestData: UserInfoInterface = {
+    userAddress: "0x18928391",
+    profileList: [
+      {
+        // logoURL: "htp://.,..,.",
+        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+        name: "THUBA DAO",
+        introduction: "introduction here",
+        treasuryAddress: "0xjasiejif",
+        access: "admin"
+      },
+      {
+        // logoURL: "htp://.,..,.",
+        logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+        name: "BIT DAO",
+        introduction: "introduction here",
+        treasuryAddress: "0xjasiejif",
+        access: "admin"
+      },
+      {
+        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+        name: "Something DAO",
+        introduction: "introduction here",
+        treasuryAddress: "0xjasiejif",
+        access: "subadmin"
+      },
+      {
+        logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+        name: "Brian DAO",
+        introduction: "introduction here",
+        treasuryAddress: "0xjasiejif",
+        access: "member"
+      }
+    ]
+  }
 
   // const connect = async () => {
   //   console.log("here")
@@ -46,7 +107,7 @@ function Navbar(props) {
 
   return (
     <>
-      <nav className="w-full h-30 mt-auto max-w-6xl" >
+      <nav className="w-full mt-auto max-w-6xl" style={{ height: "100px" }} >
         <div className="flex flex-row justify-between items-center h-full">
           <div className="" >
             <Link href="/" passHref>
@@ -57,74 +118,143 @@ function Navbar(props) {
             </Link>
             {/* <span style={{ fontSize: "1rem", color: "white", marginLeft: "15px", backgroundColor: "#B98BE8", borderRadius: "5px", paddingLeft: "5px", paddingRight: "5px" }}>Hi </span>
             <span style={{ fontSize: "1rem", color: "#B98BE8" }}>THUBA DAO</span> */}
-            {/* <span style={{ fontSize: "1rem", color: "white" }}>Hi there!</span> */}
             {daoName &&
               <span style={{ fontSize: "1.1rem", color: "white", marginTop: "30px", backgroundColor: "#B98BE8", borderRadius: "10px", padding: "2px", paddingLeft: "8px", paddingRight: "8px" }}>{daoName}</span>
             }
           </div>
 
-          {account ? (
-            // <div className="px-6 py-2 cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px" }}
-            //   onClick={() => {
-            //     console.log("clicked for disconnect", account)
-            //   }}
-            // >
-            // <>
-            //   <select
-            //     className="px-6 py-2 cursor-pointer border border-black rounded-xl text-black"
-            //     name="connectbutton"
-            //     id="connect"
-            //     style={{ backgroundColor: "#B98BE8" }}
-            //   >
 
-            //     <option value="Dec">disconnect</option>
-            //   </select>
-            <div style={{ float: "right"}}>
+          <div className={styles.accountdao}>
 
-              <div className="px-6 py-2 cursor-pointer" style={{ marginTop: "30px", backgroundColor: "#1F2129", border: "2px solid #B98BE8", borderRadius: "15px", marginBottom: "5px" }}
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <Menu.Button
+                  className="inline-flex w-full justify-center gap-x-1.5 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-black-900  hover:bg-gray-50"
+                  style={{ boxShadow: "2px 2px #B98BE8", color: "black" }}
+                >
+                  {daoname && daoname}
+                  <ChevronDownIcon className="-mr-1 h-5 w-5 text-black-400" aria-hidden="true" />
+                </Menu.Button>
+              </div>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {!isCreate &&
+                      daoTestData.profileList.map((item) => {
+                        return (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <a
+                                href={'/overview?DAO=' + item.name}
+                                className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}
+                              >
+                                {item.name}
+                              </a>
+                            )}
+                          </Menu.Item>
+                        )
+                      })}
+                    <div className="flex-grow border-t border-gray-200 " ></div>
+                    <form method="POST" action="#">
+                      <Menu.Item
+                      >
+                        {({ active }) => (
+                          <a
+                            href={'/create'}
+                            className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}
+                          >
+                            + Create New
+                          </a>
+                          // <button
+                          //   type="submit"
+                          //   className={classNames(
+                          //     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                          //     'block w-full px-4 py-2 text-left text-sm border-black'
+                          //   )}
+
+                          // >
+                          //   + Create New
+                          // </button>
+                        )}
+                      </Menu.Item>
+                    </form>
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+
+            {account ? (
+              <div style={{ float: "right" }}>
+
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button
+                      className="inline-flex w-full justify-center gap-x-1.5 rounded-xl bg-white px-3 py-2 text-sm font-semibold text-white-900  hover:bg-gray-50"
+                      style={{ backgroundColor: "#B98BE8", boxShadow: "2px 2px white" }}
+                    >
+                      {account.substr(0, 4)}...{account.substr(38, 42)}
+                      <ChevronDownIcon className="-mr-1 h-5 w-5 text-white-400" aria-hidden="true" />
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+
+                        <form method="POST" action="#">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                type="submit"
+                                className={classNames(
+                                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                  'block w-full px-4 py-2 text-left text-sm'
+                                )}
+                              >
+                                Disconnect
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </form>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+
+
+              </div>
+            ) : (
+              <div
+                className="px-6 py-2 rounded-md cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px" }}
                 onClick={() => {
-                  if (disconnectVisible == true) {
-                    setDisconnectVisible(false)
-                  }
-                  else {
-                    setDisconnectVisible(true)
-                  }
-                  console.log("clicked account", account)
+                  console.log("clicked on connect");
+                  connect();
+                  console.log("after connect");
                 }}
               >
-
-                <span className=" text-white" style={{ fontSize: "0.8rem", textAlign: "center" }}>
-                  {account.substr(0, 4)}...{account.substr(38, 42)}  v
-                </span>
+                <span className="text-white" style={{ fontSize: "0.8rem" }}>Connect</span>
               </div>
-              {disconnectVisible &&
-                <div>
-                  <div className="px-6 py-2 cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px", height: "41px" }}
-                    onClick={() => {
-                      setDisconnectVisible(false)
-                      console.log("clicked disconnect button", account)
-                    }}
-                  >
-                    <span className=" text-white" style={{ fontSize: "0.8rem", textAlign: "center" }}>
-                      disconnect
-                    </span>
-                  </div>
-                </div>
-              }
-            </div>
-          ) : (
-            <div
-              className="px-6 py-2 rounded-md cursor-pointer" style={{ backgroundColor: "#B98BE8", borderRadius: "15px" }}
-              onClick={() => {
-                console.log("clicked on connect");
-                connect();
-                console.log("after connect");
-              }}
-            >
-              <span className="text-white" style={{ fontSize: "0.8rem" }}>Connect</span>
-            </div>
-          )}
+            )}
+          </div>
         </div>
+
       </nav>
       <nav className="w-full h-23 m-auto max-w-6xl flex justify-center">
         {/* <div className="flex flex-row justify-between items-center h-full" style={{width:"600px"}}> */}

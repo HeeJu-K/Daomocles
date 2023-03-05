@@ -16,8 +16,11 @@ export default function Home() {
     interface TokenAssetsInterface {
         assets: Array<TokenAssets>;
     }
-    const queryParameters = new URLSearchParams(window.location.search)
-    const daoname = queryParameters.get("DAO")
+    let daoname = ""
+    if (typeof window !== "undefined") {
+      const queryParameters = new URLSearchParams(window.location.search)
+      daoname = queryParameters.get("DAO")
+    }
 
     const tokenAssets: TokenAssetsInterface = {
         assets: [{
@@ -80,8 +83,6 @@ export default function Home() {
                             <div >{item.tokenName}</div>
                             <div className="divider" style={{ color: "white" }}></div>
                             <div className="divider"></div>
-
-
                         </>
                     })}
                     <>

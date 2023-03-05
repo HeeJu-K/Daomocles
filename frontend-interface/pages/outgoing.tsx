@@ -7,8 +7,11 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   // const { loading, account, createStakeholder, currentBal } = useData();
   const [val, setVal] = useState("");
-  const queryParameters = new URLSearchParams(window.location.search)
-  const daoname = queryParameters.get("DAO")
+  let daoname = ""
+  if (typeof window !== "undefined") {
+    const queryParameters = new URLSearchParams(window.location.search)
+    daoname = queryParameters.get("DAO")
+  }
   // if (loading) {
   //   return (
   //     <div className="h-screen w-screen flex justify-center items-center">
