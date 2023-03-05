@@ -51,7 +51,7 @@ professional financial management experience. For business, we wish to have  mor
 ![image](https://user-images.githubusercontent.com/24932093/222961483-0bc24975-5cf9-432f-b29e-fca12b7bb9ee.png)
 
 # Smart Contracts
-- [Goerli](https://goerli.etherscan.io/address/0x81eecd719a8cec910d53076441227f5eb4d0ee8d)
+- [Mantle Goerli Testnet Deployed Contracts](https://goerli.etherscan.io/address/0x81eecd719a8cec910d53076441227f5eb4d0ee8d)
 - []()
 
 
