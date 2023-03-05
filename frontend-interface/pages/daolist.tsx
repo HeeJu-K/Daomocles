@@ -95,7 +95,7 @@ export default function Home() {
                 <div className={styles.DAOlist} style={{ marginBottom: "50px" }}>
                     {daoTestData.profileList.map((item) => {
                         return (
-                            <Link href={'/overview?DAO=' + item.name + '?permission=' + item.access} passHref >
+                            <Link href={'/overview?DAO=' + item.name + '&permission=' + item.access} passHref >
                                 <div className={styles.DAOinstance}>
 
                                     <div>

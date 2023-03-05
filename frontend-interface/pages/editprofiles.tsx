@@ -10,11 +10,12 @@ import DAOlogo from "../temp_assets/THUBA_logo.png";
 
 export default function Home() {
     let daoname = ""
+    let daoaccess = ""
     if (typeof window !== "undefined") {
         const queryParameters = new URLSearchParams(window.location.search)
         daoname = queryParameters.get("DAO")
+        daoaccess = queryParameters.get("permission")
     }
-    console.log("edit progfiles", daoname)
     return (
         <div className={styles.container}>
             <Head>
@@ -24,9 +25,11 @@ export default function Home() {
             </Head>
             <Navbar
                 daoname={daoname}
+                daoaccess={daoaccess}
             />
             <SettingNavbar
                 daoname={daoname}
+                daoaccess={daoaccess}
             />
             <div className={styles.settings} style={{ height: "450px", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid} style={{ gridTemplateColumns: "50% 50%" }}>

@@ -15,11 +15,13 @@ function Navbar(props) {
   const {
     isCreate,
     daoname,
+    daoaccess
   } = props
   const router = useRouter();
   // const { account, connect, isMember, isStakeholder } = useData();
   const { account, connect } = useData();
   const [daoName, setDaoName] = useState("")
+  const [daoAccess, setDaoAccess] = useState("")
 
   // const [account, setAccount] = useState("");
 
@@ -31,7 +33,8 @@ function Navbar(props) {
     else {
       setDaoName(daoname)
     }
-    console.log("router ", router.asPath.substring(0, 6))
+    setDaoAccess(daoaccess)
+    console.log("see daoname and dao access ", daoname, daoaccess)
   }, []);
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -110,7 +113,7 @@ function Navbar(props) {
       <nav className="w-full mt-auto max-w-6xl" style={{ height: "100px" }} >
         <div className="flex flex-row justify-between items-center h-full">
           <div className="" >
-            <Link href="/" passHref>
+            <Link href={"/overview?DAO="+daoName + '&permission=' + daoAccess} passHref>
               <div style={{ fontSize: "2rem", marginTop: "20px" }}>DAOmocles</div>
               {/* <span className="font-semibold text-xl cursor-pointer">
                 DAOmocles
@@ -154,7 +157,7 @@ function Navbar(props) {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href={'/overview?DAO=' + item.name}
+                                href={'/overview?DAO=' + item.name  + '&permission=' + item.access}
                                 className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}
                               >
                                 {item.name}
@@ -265,27 +268,27 @@ function Navbar(props) {
             <TabButton
               title="Overview"
               isActive={router.asPath.substring(0, 9) === "/overview"}
-              url={"/overview?DAO=" + daoName}
+              url={"/overview?DAO=" + daoName + '&permission=' + daoAccess}
             />
             {true && (
               <TabButton
                 title="Incoming"
                 isActive={router.asPath.substring(0, 9) === "/incoming"}
-                url={"/incoming?DAO=" + daoName}
+                url={"/incoming?DAO=" + daoName + '&permission=' + daoAccess}
               />
             )}
             {true && (
               <TabButton
                 title="Outgoing"
                 isActive={router.asPath.substring(0, 9) === "/outgoing"}
-                url={"/outgoing?DAO=" + daoName}
+                url={"/outgoing?DAO=" + daoName + '&permission=' + daoAccess}
               />
             )}
             {true && (
               <TabButton
                 title="Settings"
                 isActive={router.asPath.substring(0, 11) === "/assetsinfo" || router.asPath.substring(0, 13) === "/editprofiles" || router.asPath.substring(0, 16) === "/editpermissions"}
-                url={"/assetsinfo?DAO=" + daoName}
+                url={"/assetsinfo?DAO=" + daoName + '&permission=' + daoAccess}
               />
             )}
           </div>
