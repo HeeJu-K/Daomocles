@@ -7,9 +7,11 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   let daoname = ""
+  let daoaccess = ""
   if (typeof window !== "undefined") {
-    const queryParameters = new URLSearchParams(window.location.search)
-    daoname = queryParameters.get("DAO")
+      const queryParameters = new URLSearchParams(window.location.search)
+      daoname = queryParameters.get("DAO")
+      daoaccess = queryParameters.get("permission")
   }
   // const { allInvestedProposal, loading, account } = useData();
 
@@ -38,9 +40,11 @@ export default function Home() {
       </Head>
       <Navbar
         daoname={daoname}
+        daoaccess={daoaccess}
       />
       <SettingNavbar
         daoname={daoname}
+        daoaccess={daoaccess}
       />
       <span className="text-lg font-bold mt-5">My Investments</span>
       <main className="w-full flex flex-row py-4 flex-grow max-w-5xl">
