@@ -23,61 +23,61 @@ export default function Home() {
     details: string;
     label: string;
     network: string;
-    asset: number;
-    value: number;
+    asset: string;
+    value: string;
     type: string;
     time: string;
   }
   const tmpData: Array<TableEntryInterface> = [
     {
-      name: "hackathon",
-      details: "hackathon prize money",
-      label: "host",
-      network: "137",
-      asset: 68301,
-      value: 60000,
-      type: "",
-      time: "2021-08-04",
+      name: "",
+      details: "",
+      label: "",
+      network: "Ethereum",
+      asset: "-8962",
+      value: "-8961",
+      type: "USDT",
+      time: "2023-02-23",
     },
     {
-      name: "Fair",
-      details: "club fair fees for recuiting",
-      label: "host",
-      network: "5000",
-      asset: 28712,
-      value: 217,
-      type: "",
-      time: "2022-03-07",
+      name: "",
+      details: "",
+      label: "",
+      network: "Metis",
+      asset: "-3000",
+      value: "-100",
+      type: "Metis",
+      time: "2023-02-21",
     },
     {
       name: "Flight",
       details: "Flight ticket to Eth Denver",
       label: "attend",
-      network: "1",
-      asset: 14,
-      value: 18000,
-      type: "",
+      network: "Ethereum",
+      asset: "-14",
+      value: "-18000",
+      type: "ETH",
       time: "2023-02-17",
     },
     {
-      name: "",
-      details: "",
-      label: "",
-      network: "5000",
-      asset: 14132,
-      value: 100,
-      type: "",
-      time: "2023-02-21",
+      name: "Fair",
+      details: "club fair fees for recuiting",
+      label: "host",
+      network: "Mantle",
+      asset: "-28712",
+      value: "-217",
+      type: "ETH",
+      time: "2022-03-07",
     },
     {
-      name: "",
-      details: "",
-      label: "",
-      network: "1",
-      asset: 12092,
-      value: 7,
-      type: "",
-      time: "2023-02-23",
+      name: "hackathon",
+      details: "hackathon prize money",
+      label: "host",
+      network: "Polygon",
+      asset: "-3729",
+      value: "-60000",
+      type: "ETH",
+      time: "2021-08-04",
     },
   ]
   const [editState, setEditState] = useState(Array.from({ length: tmpData.length }, () => false));
@@ -179,125 +179,125 @@ export default function Home() {
             <button className={styles.confirmbutton} style={{ marginLeft: "40%" }}>Confirm</button>
           </ReactModal>
           <p className="mt-4 w-full flex flex-wrap items-center justify-between">
-              <div>
-                Month &nbsp;
-                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
-                  <option value="Jan">Jan</option>
-                  <option value="Feb">Feb</option>
-                  <option value="Mar">Mar</option>
-                  <option value="Apr">Apr</option>
-                  <option value="May">May</option>
-                  <option value="Jun">Jun</option>
-                  <option value="Jul">Jul</option>
-                  <option value="Aug">Aug</option>
-                  <option value="Sep">Sep</option>
-                  <option value="Oct">Oct</option>
-                  <option value="Nov">Nov</option>
-                  <option value="Dec">Dec</option>
-                </select>
+            <div>
+              Month &nbsp;
+              <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
+                <option value="Jan">Jan</option>
+                <option value="Feb">Feb</option>
+                <option value="Mar">Mar</option>
+                <option value="Apr">Apr</option>
+                <option value="May">May</option>
+                <option value="Jun">Jun</option>
+                <option value="Jul">Jul</option>
+                <option value="Aug">Aug</option>
+                <option value="Sep">Sep</option>
+                <option value="Oct">Oct</option>
+                <option value="Nov">Nov</option>
+                <option value="Dec">Dec</option>
+              </select>
 
-                &emsp; Tags &nbsp;
-                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Labels" id="labels">
-                  <option value="Marketing">Marketing</option>
-                  <option value="Contribution">Contribution</option>
-                  <option value="Grant">Grant</option>
-                </select>
-                &emsp;
+              &emsp; Tags &nbsp;
+              <select className="px-3 py-1 border border-black rounded-xl text-black" name="Labels" id="labels">
+                <option value="attend">attend</option>
+                <option value="host">host</option>
+              </select>
+              &emsp;
 
-                <button
-                  className={styles.tablebutton}
-                  style={{ width: "85px" }}
-                  type="submit"
-                  name="search-button"
-                  id="search-button"
-                >
-                  Search
-                </button>
-              </div>
+              <button
+                className={styles.tablebutton}
+                style={{ width: "85px" }}
+                type="submit"
+                name="search-button"
+                id="search-button"
+              >
+                Search
+              </button>
+            </div>
 
-              <div>
-                <button
-                  className={styles.tablebutton}
-                  style={{ width: "60px" }}
-                  type="submit"
-                  name="search-button"
-                  id="search-button"
-                  onClick={() => {
-                    // handleDummy()
-                    if (isEdit) {
-                      setIsEdit(false)
-                    } else {
-                      setIsEdit(true)
-                    }
+            <div>
+              <button
+                className={styles.tablebutton}
+                style={{ width: "60px" }}
+                type="submit"
+                name="search-button"
+                id="search-button"
+                onClick={() => {
+                  // handleDummy()
+                  if (isEdit) {
+                    setIsEdit(false)
+                  } else {
+                    setIsEdit(true)
+                  }
 
-                  }}
-                >
-                  {isEdit ? <span>Save</span> : <span>Edit</span>}
-                </button>
-              </div>
+                }}
+              >
+                {isEdit ? <span>Save</span> : <span>Edit</span>}
+              </button>
+            </div>
 
-            </p>
+          </p>
 
-            <p className="mt-4 flex flex-col justify-center" id="table">
-              <table className="table-fixed border-white border">
-                <thead className="border-white border max-w-xs">
-                  <tr>
-                    <th>Item Name</th>
-                    <th>Descriptions</th>
-                    <th>Label</th>
-                    <th>Network</th>
-                    <th>Asset</th>
-                    <th>Value</th>
-                    <th>Time</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody className="mt-4 max-w-xs">
-                  {tmpData.map((item, key) => {
-                    return (
-                      <tr>
-                        <td>
-                          {/* {key == } */}
-                          {!item.name && editState[key] ?
-                            <input
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
-                              // onChange={handleNameChange}
-                              type="text" id={"name" + key.toString()}>
-                            </input>
-                            : <span>{item.name}</span>
-                          }</td>
-                        <td>
-                          {!item.details && editState[key] ?
-                            <input
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
-                              // onChange={handleDescriptionChange}
-                              type="text" id={"detail" + key.toString()}>
-                            </input>
-                            : <span>{item.details}</span>
-                          }
-                        </td>
-                        <td>
-                          {!item.label && editState[key] ?
-                            <input
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
-                              // onChange={handleLabelChange}
-                              type="text" id={"label" + key.toString()}>
-                            </input>
-                            : <span>{item.label}</span>
-                          }
-                        </td>
+          <p className="mt-4 flex flex-col justify-center" id="table">
+            <table className="table-fixed border-white border">
+              <thead className="border-white border max-w-xs">
+                <tr>
+                  <th>Item Name</th>
+                  <th>Descriptions</th>
+                  <th>Label</th>
+                  <th>Token</th>
+                  <th>Network</th>
+                  <th>Asset</th>
+                  <th>Value</th>
+                  <th>Time</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody className="mt-4 max-w-xs">
+                {tmpData.map((item, key) => {
+                  return (
+                    <tr>
+                      <td>
+                        {/* {key == } */}
+                        {!item.name && editState[key] ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleNameChange}
+                            type="text" id={"name" + key.toString()}>
+                          </input>
+                          : <span>{item.name}</span>
+                        }</td>
+                      <td>
+                        {!item.details && editState[key] ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleDescriptionChange}
+                            type="text" id={"detail" + key.toString()}>
+                          </input>
+                          : <span>{item.details}</span>
+                        }
+                      </td>
+                      <td>
+                        {!item.label && editState[key] ?
+                          <input
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                            // onChange={handleLabelChange}
+                            type="text" id={"label" + key.toString()}>
+                          </input>
+                          : <span>{item.label}</span>
+                        }
+                      </td>
+                      <td>{item.type}</td>
+                      <td>{item.network}</td>
+                      <td>{item.asset}</td>
+                      <td>{item.value}</td>
+                      <td>{item.time}</td>
 
-                        <td>{item.network}</td>
-                        <td>{item.asset}</td>
-                        <td>{item.value}</td>
-                        <td>{item.time}</td>
-                       
-                      </tr>)
-                  })}
+                    </tr>)
+                })}
 
-                </tbody>
-              </table>
-            </p>
+              </tbody>
+            </table>
+          </p>
           {/* </div>
         </div> */}
         </div>

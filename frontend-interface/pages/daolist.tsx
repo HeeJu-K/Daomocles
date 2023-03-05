@@ -31,18 +31,19 @@ export default function Home() {
         userAddress: "0x18928391",
         profileList: [
             {
-                logoURL: THUBA,
-                // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
-                name: "THUBA DAO",
-                introduction: "introduction here",
-                treasuryAddress: "0xjasiejif",
-                access: "admin"
-            },
-            {
                 logoURL: Bit,
                 // logoURL: "htp://.,..,.",
                 // logoURL: "https://images.unsplash.com/photo-1598124146163-36819847286d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
                 name: "BIT DAO",
+                introduction: "introduction here",
+                treasuryAddress: "0xjasiejif",
+                
+                access: "admin"
+            },
+            {
+                logoURL: THUBA,
+                // logoURL: "https://bobbyhadz.com/images/blog/react-display-image-from-url/banner.webp",
+                name: "THUBA DAO",
                 introduction: "introduction here",
                 treasuryAddress: "0xjasiejif",
                 access: "subadmin"

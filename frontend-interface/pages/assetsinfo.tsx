@@ -37,18 +37,24 @@ export default function Home() {
     const [tokenName, setTokenName] = useState("");
     const [tokenAssets, setTokenAssets] = useState<TokenInterface[]>([])
 
-    // const tokenAssets: TokenAssetsInterface = {
-    //     assets: [{
-    //         network: "Mantle",
-    //         contractAddress: "0x28y349823948",
-    //         tokenName: "USDT"
-    //     },
-    //     {
-    //         network: "Mantle",
-    //         contractAddress: "0x28y349823948",
-    //         tokenName: "ETH"
-    //     }]
-    // }
+    const tokenAssets: TokenAssetsInterface = {
+        assets: [{
+            network: "Polygon",
+            contractAddress: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+            tokenName: "USDT"
+        },
+        {
+            network: "Ethereum",
+            contractAddress: "0x9E32b13ce7f2E80A01932B42553652E053D6ed8e",
+            tokenName: "Metis"
+        },
+        {
+            network: "Ethereum",
+            contractAddress: "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+            tokenName: "BAYC"
+        },
+    ]
+    }
 
     useEffect(() => {
         // Make an asynchronous request to the server using axios with parameters
@@ -101,14 +107,14 @@ export default function Home() {
             />
             <div className={styles.settings} style={{ height: "auto", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid}>
-                    {tokenAssets.map((item) => {
+                    {tokenAssets.assets.map((item) => {
                         return <>
                             <div > Network</div>
                             <div >{item.network}</div>
                             <div >Contract Address</div>
-                            <div >{item.address}</div>
+                            <div >{item.contractAddress}</div>
                             <div >Token Name</div>
-                            <div >{item.name}</div>
+                            <div >{item.tokenName}</div>
                             <div className="divider" style={{ color: "white" }}></div>
                             <div className="divider"></div>
                         </>
@@ -121,9 +127,10 @@ export default function Home() {
                                 name="Networks" id="networks"
                                 onChange={handleNetworkChange}
                             >
-                                <option value="Mantle">Mantle</option>
                                 <option value="Ethereum">Ethereum</option>
                                 <option value="Polygon">Polygon</option>
+                                <option value="Mantle">Mantle</option>
+                                <option value="Metis">Metis</option>
                             </select>
                             &emsp;
                         </div>

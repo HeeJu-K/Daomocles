@@ -93,17 +93,24 @@ export default function Home() {
     datasets: [
       {
         fill: false,
-        label: 'NFT',
+        label: 'USDT',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: '#B98BE8',
         backgroundColor: '#B98BE8',
       },
       {
         fill: false,
-        label: 'Token',
+        label: 'ETH',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: '#EC1C25',
         backgroundColor: '#EC1C25',
+      },
+      {
+        fill: false,
+        label: 'BAYC',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        borderColor: '#2648A1',
+        backgroundColor: '#2648A1',
       },
     ],
   };
@@ -112,7 +119,7 @@ export default function Home() {
     datasets: [
       {
         fill: false,
-        label: 'Dataset 1',
+        label: 'USDT',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: '#332E82',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -120,7 +127,7 @@ export default function Home() {
       },
       {
         fill: false,
-        label: 'Dataset 2',
+        label: 'BTC',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: '#2648A1',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -129,7 +136,7 @@ export default function Home() {
 
       {
         fill: false,
-        label: 'Dataset 3',
+        label: 'ETH',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: '#2873BA',
         // backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -142,71 +149,72 @@ export default function Home() {
     details: string;
     label: string;
     network: string;
-    asset: number;
-    value: number;
+    asset: string;
+    value: string;
     type: string;
     time: string;
   }
   const tmpData: Array<TableEntryInterface> = [
+
     {
-      name: "hackathon",
-      details: "hackathon prize money",
-      label: "host",
-      network: "137",
-      asset: 68301,
-      value: 60000,
-      type: "",
-      time: "2021-08-04",
-    },
-    {
-      name: "Fair",
-      details: "club fair fees for recuiting",
-      label: "host",
-      network: "5000",
-      asset: 28712,
-      value: 217,
-      type: "",
-      time: "2022-03-07",
-    },
-    {
-      name: "Flight",
-      details: "Flight ticket to Eth Denver",
-      label: "attend",
-      network: "1",
-      asset: 14,
-      value: 18000,
-      type: "",
-      time: "2023-02-17",
-    },
-    {
-      name: "Jimmy",
-      details: "Donation by Jimmy for Hackathon",
+      name: "Brian",
+      details: "Donation by Jimmy for club recruiting",
       label: "donation",
-      network: "137",
-      asset: 1428,
-      value: 1000,
-      type: "",
-      time: "2022-10-04",
+      network: "Mantle",
+      asset: "-300",
+      value: "-300",
+      type: "USDT",
+      time: "2022-12-07",
     },
     {
       name: "Won Eth SF",
       details: "1st prize at Main track",
       label: "hackathon",
-      network: "1",
-      asset: 20,
-      value: 3472,
-      type: "",
+      network: "Ethereum",
+      asset: "-20",
+      value: "-3472",
+      type: "ETH",
       time: "2022-11-25",
     },
     {
-      name: "Brian",
-      details: "Donation by Jimmy for club recruiting",
+      name: "Jimmy",
+      details: "Donation by Jimmy for Hackathon",
       label: "donation",
-      network: "5000",
-      asset: 427,
-      value: 300,
-      type: "",
-      time: "2022-12-07",
+      network: "Polygon",
+      asset: "-1428",
+      value: "-1000",
+      type: "MATIC",
+      time: "2022-10-04",
+    },
+    {
+      name: "Flight",
+      details: "Flight ticket to Eth Denver",
+      label: "attend",
+      network: "Ethereum",
+      asset: "+14",
+      value: "+18000",
+      type: "ETH",
+      time: "2023-02-17",
+    },
+    {
+      name: "Fair",
+      details: "club fair fees for recuiting",
+      label: "host",
+      network: "Mantle",
+      asset: "+28712",
+      value: "+217",
+      type: "ETH",
+      time: "2022-03-07",
+    },
+    {
+      name: "hackathon",
+      details: "hackathon prize money",
+      label: "host",
+      network: "Polygon",
+      asset: "+3729",
+      value: "+60000",
+      type: "ETH",
+      time: "2021-08-04",
     },
   ]
   return (
@@ -273,13 +281,14 @@ export default function Home() {
         <Line options={areaOptions} data={lineData} />
       </div>
       <p className="mt-4 flex flex-col justify-center" id="table">
-        <table className="table-fixed border-white border" style={{width:"90%", marginLeft:"5%", marginBottom:"30px"}}>
+        <table className="table-fixed border-white border" style={{width:"90%", padding:"20px", marginLeft:"5%", marginBottom:"30px"}}>
           <thead className="border-white border max-w-xs">
             <tr>
               <th>Item Name</th>
-              <th>Descriptions</th>
+              <th span={10} style={{width:"20%"}}>Descriptions</th>
               <th>Label</th>
               <th>Network</th>
+              <th>Token</th>
               <th>Asset</th>
               <th>Value</th>
               <th>Time</th>
@@ -291,9 +300,10 @@ export default function Home() {
               return (
                 <tr>
                   <td>{item.name}</td>
-                  <td>{item.details}</td>
+                  <td span={10} style={{width:"20%"}}>{item.details}</td>
                   <td>{item.label}</td>
                   <td>{item.network}</td>
+                  <td>{item.type}</td>
                   <td>{item.asset}</td>
                   <td>{item.value}</td>
                   <td>{item.time}</td>
