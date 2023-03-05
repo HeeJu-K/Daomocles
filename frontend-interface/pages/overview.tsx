@@ -202,7 +202,7 @@ export default function Home() {
         <Line options={areaOptions} data={lineData} />
       </div>
 
-      {true && <CreateMember />}
+      {/* {true && <CreateMember />} */}
       {/* {isMember && <ProposalList />} */}
     </div >
   );

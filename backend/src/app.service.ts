@@ -7,6 +7,7 @@ import {
   AccessType,
   PermissionInterface,
   TokenInterface,
+  TableEntryInterface,
 } from './app.interface';
 import { DAODocument, DAO, USERDocument, USER } from './app.schema';
 import {
@@ -16,6 +17,9 @@ import {
   getDAOPermissionInList,
   getTokenSymbolFromNetwork,
 } from './app.helper';
+import axios from 'axios';
+import Web3 from 'web3';
+import { daoTransactionABI } from './daoTransaction';
 
 @Injectable()
 export class AppService {
@@ -387,5 +391,49 @@ export class AppService {
     } else {
       return null;
     }
+  }
+
+  async getIncomingTransactions(
+    daoID: string,
+    daomoclesAddress: string,
+  ): Promise<Array<TableEntryInterface>> {
+    const existingDao = await this.daoModel.findOne({
+      _id: daoID,
+    });
+    const url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${existingDao.treasuryAddress}&apikey=${process.env.ETHERSCAN_API_KEY}&page=1&offset=100&startblock=0&endblock=27025780&sort=asc`;
+    Logger.log(url);
+    const response = await axios.get(url);
+    const txns = response.data.result;
+
+    const web3Provider = new Web3(
+      'https://goerli.infura.io/v3/eee4dbfa3d864cbab507a1f9ddd692f9',
+    );
+
+    const contract = new web3Provider.eth.Contract(
+      daoTransactionABI,
+      daomoclesAddress,
+    );
+
+    const result: Array<TableEntryInterface> = [];
+    for (let i = 0; i < txns.length; i++) {
+      const onChainResult = new contract.methods.getInTransactions(
+        true,
+        txns[i].hash,
+      );
+      Logger.log(onChainResult);
+
+      result.push({
+        name: '',
+        details: '',
+        label: '',
+        network: 'Ethereum',
+        asset: txns[i].value.toString() + txns[i].tokenSymbol,
+        value: '',
+        type: 'Token',
+        time: txns[i].timeStamp,
+        hash: txns[i].hash,
+      });
+    }
+    return null;
   }
 }

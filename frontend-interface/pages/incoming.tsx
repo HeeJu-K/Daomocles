@@ -133,18 +133,16 @@ export default function Home() {
                     <th>Time</th>
                   </tr>
                 </thead>
-                <tbody className="mt-4 max-w-xs">
-                  <div>
-                    <tr>
-                      <td>name 1</td>
-                      <td>here is the description</td>
-                      <td>Marketing</td>
-                      <td>Eth</td>
-                      <td>eth</td>
-                      <td>13</td>
-                      <td>2023-03-02</td>
-                    </tr>
-                  </div>
+                <tbody>
+                  <tr>
+                    <td>name 1</td>
+                    <td>here is the description</td>
+                    <td>Marketing</td>
+                    <td>Eth</td>
+                    <td>eth</td>
+                    <td>13</td>
+                    <td>2023-03-02</td>
+                  </tr>
                   <tr>
                     <td>name 1</td>
                     <td>here is the description</td>

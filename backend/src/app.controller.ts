@@ -17,6 +17,7 @@ import {
   DAOBriefInterface,
   PermissionInterface,
   TokenInterface,
+  TableEntryInterface,
 } from './app.interface';
 import { readFileSync } from 'fs';
 import { parse } from 'papaparse';
@@ -160,6 +161,17 @@ export class AppController {
       params.address,
       params.daoID,
       deleteToken,
+    );
+  }
+
+  @Get(':address/:daoID/:daoContractAddress/transactions/incoming')
+  async getIncomingTransactions(
+    @Param() params,
+  ): Promise<Array<TableEntryInterface>> {
+    Logger.log('get dao/transactions/incoming');
+    return this.appService.getIncomingTransactions(
+      params.daoID,
+      params.daoContractAddress,
     );
   }
 }
