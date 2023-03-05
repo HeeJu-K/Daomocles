@@ -162,6 +162,7 @@ export default function Home() {
   // const { isMember, isStakeholder, loading } = useData();
   // if (loading) return <div>Loading...</div>;
   return (
+    <>
     <div className={styles.container}>
       <Head>
         <title>DAOmocles</title>
@@ -172,7 +173,6 @@ export default function Home() {
         daoname={daoname}
         daoaccess={daoaccess}
       />
-<<<<<<< HEAD
       <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
         {/* <div className="flex flex-col justify-center"> */}
         <div className={styles.incomingoutgoing}>
@@ -364,114 +364,7 @@ export default function Home() {
         </div>
       </main>
 
-=======
-      {/* {isMember && ( */}
-      {true && (
-        <main className="w-full flex flex-col py-4 flex-grow max-w-8xl items-center">
-          {/* <div className="flex flex-col justify-center"> */}
-          <div className={styles.incomingoutgoing}>
-            {/* <span className="text-xl text-center">Create a new Proposal</span> */}
-            <p className="mt-4 w-full flex flex-wrap items-center justify-between">
-
-              <div>
-                Month &nbsp;
-
-                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
-                  <option value="Jan">Jan</option>
-                  <option value="Feb">Feb</option>
-                  <option value="Mar">Mar</option>
-                  <option value="Apr">Apr</option>
-                  <option value="May">May</option>
-                  <option value="Jun">Jun</option>
-                  <option value="Jul">Jul</option>
-                  <option value="Aug">Aug</option>
-                  <option value="Sep">Sep</option>
-                  <option value="Oct">Oct</option>
-                  <option value="Nov">Nov</option>
-                  <option value="Dec">Dec</option>
-                </select>
-
-                &emsp; Tags &nbsp;
-                <select className="px-3 py-1 border border-black rounded-xl text-black" name="Labels" id="labels">
-                  <option value="Marketing">Marketing</option>
-                  <option value="Contribution">Contribution</option>
-                  <option value="Grant">Grant</option>
-                </select>
-                &emsp;
-
-                <button
-                  className={styles.tablebutton}
-                  style={{width:"85px"}}
-                  type="submit"
-                  name="search-button"
-                  id="search-button"
-                >
-                  Search
-                </button>
-              </div>
-
-              <div>
-                <button
-                  className={styles.tablebutton}
-                  style={{width:"60px"}}
-                  type="submit"
-                  name="search-button"
-                  id="search-button"
-                >
-                  Edit
-                </button>
-              </div>
-
-            </p>
-
-            <p className="mt-4 flex flex-col justify-center" id="table">
-              <table className="table-fixed border-white border">
-                <thead className="border-white border max-w-xs">
-                  <tr>
-                    <th>Item Name</th>
-                    <th>Descriptions</th>
-                    <th>Label</th>
-                    <th>Network</th>
-                    <th>Asset</th>
-                    <th>Value</th>
-                    <th>Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>name 1</td>
-                    <td>here is the description</td>
-                    <td>Marketing</td>
-                    <td>Eth</td>
-                    <td>eth</td>
-                    <td>13</td>
-                    <td>2023-03-02</td>
-                  </tr>
-                  <tr>
-                    <td>name 1</td>
-                    <td>here is the description</td>
-                    <td>Marketing</td>
-                    <td>Eth</td>
-                    <td>eth</td>
-                    <td>13</td>
-                    <td>2023-03-02</td>
-                  </tr>
-                  <tr>
-                    <td>name 1</td>
-                    <td>here is the description</td>
-                    <td>Marketing</td>
-                    <td>Eth</td>
-                    <td>eth</td>
-                    <td>13</td>
-                    <td>2023-03-02</td>
-                  </tr>
-                </tbody>
-              </table>
-            </p>
-          </div>
-        </main>
-      )}
->>>>>>> backend
     </div>
+    </>
   );
 }

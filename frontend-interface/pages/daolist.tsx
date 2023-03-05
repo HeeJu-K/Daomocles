@@ -70,6 +70,7 @@ export default function Home() {
     // const { isMember, isStakeholder, loading } = useData();
     // if (loading) return <div>Loading...</div>;
     return (
+        <>
         <div className={styles.container}>
             <Head>
                 <title>DAOmocles</title>
@@ -135,5 +136,6 @@ export default function Home() {
             )
             }
         </div >
+        </>
     );
 }

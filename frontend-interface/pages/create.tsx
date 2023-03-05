@@ -113,6 +113,7 @@ export default function Home() {
     // const { isMember, isStakeholder, loading } = useData();
     // if (loading) return <div>Loading...</div>;
     return (
+        <>
         <div className={styles.container}>
             <Head>
                 <title>DAOmocles</title>
@@ -128,7 +129,6 @@ export default function Home() {
                     <div className={styles.settingsgrid} style={{ gridTemplateColumns: "50% 50%" }}>
                         <div>Upload DAO Logo</div>
                         <div>
-<<<<<<< HEAD
                             <input
                                 accept="image/*"
                                 type="file"
@@ -148,18 +148,6 @@ export default function Home() {
                                     </button>
                                 </div>
                             )}
-=======
-                            <input type="file" accept="image/*" onChange={handleFileUpload} />
-                            {/* {ipfsAvailable && (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                    src={`https://gateway.pinata.cloud/ipfs/${ipfsHash}`}
-                                    alt="Uploaded image"
-                                    width="300"
-                                    height="300"
-                                />
-                            )} */}
->>>>>>> backend
                         </div>
 
                         <div style={{ marginTop: "8px" }}>DAO Name</div>
@@ -186,5 +174,6 @@ export default function Home() {
             </main>
 
         </div >
+        </>
     );
 }

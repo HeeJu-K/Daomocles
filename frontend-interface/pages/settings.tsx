@@ -32,6 +32,7 @@ export default function Home() {
   //   );
   // }
   return (
+    <>
     <div className={styles.container}>
       <Head>
         <title>DAOmocles</title>
@@ -62,5 +63,6 @@ export default function Home() {
         ))} */}
       </main>
     </div>
+    </>
   );
 }

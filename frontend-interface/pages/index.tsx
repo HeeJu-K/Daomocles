@@ -7,6 +7,7 @@ export default function Home() {
 
 
     return (
+        <>
         <div className={styles.container}>
             <Head>
                 <title style={{ fontSize: "5rem" }}>DAOmocles</title>
@@ -22,5 +23,6 @@ export default function Home() {
                 <a href='/daolist' style={{ marginTop:"5rem", marginLeft:"40%", padding:"1rem", paddingLeft:"2rem",paddingRight:"2rem", borderRadius:"15px", backgroundColor:"#B98BE8",fontSize: "2rem", textAlign: "center"}}> Launch App </a>
             </div>
         </div >
+        </>
     );
 }

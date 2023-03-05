@@ -218,6 +218,7 @@ export default function Home() {
     },
   ]
   return (
+    <>
     <div className={styles.container}>
       <Head>
         <title style={{ fontSize: "5rem" }}>DAOmocles</title>
@@ -311,14 +312,11 @@ export default function Home() {
                 </tr>)
             })}
 
-<<<<<<< HEAD
           </tbody>
         </table>
       </p>
-=======
-      {/* {true && <CreateMember />} */}
->>>>>>> backend
       {/* {isMember && <ProposalList />} */}
     </div >
+    </>
   );
 }
