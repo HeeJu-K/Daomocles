@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract Dao {
+contract Dao is AccessControl {
   string public logo_URL;
   string public name;
   string public introduction;
@@ -29,42 +30,39 @@ contract Dao {
     ownerAddress = msg.sender;
   }
 
-  function getDAOInfo() external view returns (string, string, string, address) {
+  function getDAOInfo() external view returns (string memory, string memory, string memory, address) {
     return (logo_URL, name, introduction, treasuryAddress);
   }
 
   function updateDAOLogo(
     string memory _logo_URL
-  ) public onlyRole(ROLE_ADMIN)  {
+  ) public onlyRole(ROLE_ADMIN) {
     logo_URL = _logo_URL;
   }
 
   function updateDAOName(
-    string memory _logo_URL
+    string memory _name
   ) public onlyRole(ROLE_ADMIN)  {
     name = _name;
   }
 
-  function updateDAOLogo(
-    string memory _logo_URL
+  function updateDAOIntroduction(
+    string memory _introduction
   ) public onlyRole(ROLE_ADMIN)  {
     introduction = _introduction;
   }
 
-  function getAdminMembers() public view onlyRole(ROLE_ADMIN)  returns (address[] memory){
-    address[] memory admins = getRoleMembers(ADMIN_ROLE);
-    return admins;
-  }
+  // function getAdminMembers() public view onlyRole(ROLE_ADMIN) returns (address[] memory){
+  //   return getRoleMembers(ROLE_ADMIN);
+  // }
 
-  function getSubAdminMembers() public view onlyRole(ROLE_ADMIN)  returns (address[] memory){
-    address[] memory subadmins = getRoleMembers(SUBADMIN_ROLE);
-    return subadmins;
-  }
+  // function getSubAdminMembers() public view onlyRole(ROLE_ADMIN) returns (address[] memory){
+  //   return getRoleMembers(ROLE_SUBADMIN);
+  // }
 
-  function getMembers() public view onlyRole(ROLE_ADMIN)  returns (address[] memory){
-    address[] memory members = getRoleMembers(MEMBER_ROLE);
-    return members;
-  }
+  // function getMembers() public view onlyRole(ROLE_ADMIN) returns (address[] memory){
+  //   return getRoleMembers(ROLE_MEMBER);
+  // }
 
   function deleteMembers(address userAddress) public onlyRole(ROLE_ADMIN) {
     revokeRole(ROLE_MEMBER, userAddress);
@@ -76,8 +74,8 @@ contract Dao {
 
   function addTokenList(address tokenAddress) public onlyRole(ROLE_ADMIN) {
     bool flag = false;
-    for (uint8 i = 0; i < tokenList.length; i ++) {
-      if (tokenList[i] == tokenAddress) {
+    for (uint8 i = 0; i < tokenLists.length; i ++) {
+      if (tokenLists[i] == tokenAddress) {
         flag = true;
       }
     }
@@ -87,9 +85,9 @@ contract Dao {
   }
 
   function removeTokenFromList(address tokenAddress) public onlyRole(ROLE_ADMIN) {
-    for (uint8 i = 0; i < tokenList.length; i ++) {
-      if (tokenList[i] == tokenAddress) {
-        delete tokenList[i];
+    for (uint8 i = 0; i < tokenLists.length; i ++) {
+      if (tokenLists[i] == tokenAddress) {
+        delete tokenLists[i];
       }
     }
   }

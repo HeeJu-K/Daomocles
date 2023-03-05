@@ -54,7 +54,7 @@ contract DaoTransactions is AccessControl  {
         }
     }
 
-    function getInTransactions(bool isIn, uint256 txnHash) view public returns (string memory, uint, string memory) {
+    function getInTransactions(bool isIn, uint256 txnHash) view public returns (string memory, string memory, string memory) {
         if (isIn) {
             return (inTransactions[txnHash].name, inTransactions[txnHash].description, inTransactions[txnHash].label);
         } else {
