@@ -157,7 +157,7 @@ function Navbar(props) {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href={'/overview?DAO=' + item.name  + '&permission=' + item.access}
+                                href={'/outgoing?DAO=' + item.name  + '&permission=' + item.access}
                                 className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm')}
                               >
                                 {item.name}
@@ -265,12 +265,13 @@ function Navbar(props) {
           // <div className="flex flex-row items-center justify-center h-full" style={{width:"700px"}}>
           <div style={{ display: "flex", width: "80%", marginTop: "50px", marginBottom: "10px" }}>
 
+            {(daoAccess == "admin"  || daoAccess == "subadmin") &&(
             <TabButton
               title="Overview"
               isActive={router.asPath.substring(0, 9) === "/overview"}
               url={"/overview?DAO=" + daoName + '&permission=' + daoAccess}
-            />
-            {true && (
+            />)}
+            {(daoAccess == "admin" || daoAccess == "subadmin") && (
               <TabButton
                 title="Incoming"
                 isActive={router.asPath.substring(0, 9) === "/incoming"}
@@ -284,7 +285,7 @@ function Navbar(props) {
                 url={"/outgoing?DAO=" + daoName + '&permission=' + daoAccess}
               />
             )}
-            {true && (
+            {daoAccess == "admin" && (
               <TabButton
                 title="Settings"
                 isActive={router.asPath.substring(0, 11) === "/assetsinfo" || router.asPath.substring(0, 13) === "/editprofiles" || router.asPath.substring(0, 16) === "/editpermissions"}

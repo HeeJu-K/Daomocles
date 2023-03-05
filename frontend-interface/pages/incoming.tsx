@@ -68,10 +68,8 @@ export default function Home() {
           <div className={styles.incomingoutgoing}>
             {/* <span className="text-xl text-center">Create a new Proposal</span> */}
             <p className="mt-4 w-full flex flex-wrap items-center justify-between">
-
               <div>
                 Month &nbsp;
-
                 <select className="px-3 py-1 border border-black rounded-xl text-black" name="Months" id="months">
                   <option value="Jan">Jan</option>
                   <option value="Feb">Feb</option>

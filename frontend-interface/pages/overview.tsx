@@ -149,7 +149,7 @@ export default function Home() {
         daoname={daoname} 
         daoaccess={daoaccess}
       />
-      <div style={{ marginTop: "2rem", width: "80%" }}>
+      <div style={{ marginTop: "2rem", width: "70%" }}>
         <div className={styles.overview}>
           {/* <div className={styles.overviewassets}> */}
           <div className="w-1/3 ">
