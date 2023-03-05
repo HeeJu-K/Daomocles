@@ -53,5 +53,5 @@ professional financial management experience. For business, we wish to have  mor
 # Smart Contracts
 - [Goerli Testnet Deployed Contracts](https://goerli.etherscan.io/address/0x81eecd719a8cec910d53076441227f5eb4d0ee8d)
 - [Metis Testnet Deployed Contracts](https://goerli.explorer.metisdevops.link/address/0x81EecD719A8CEc910D53076441227F5Eb4d0ee8d/transactions#address-tabs)
-- [Mantle Testnet Deployed Contracts]()
+- [Mantle Testnet Deployed Contracts](https://explorer.testnet.mantle.xyz/address/0x8f06151325b84228DAE77218E62b264f7340c921)
 - [Polygon Testnet Deployed Contracts](https://mumbai.polygonscan.com/address/0x8f06151325b84228DAE77218E62b264f7340c921)
