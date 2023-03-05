@@ -311,9 +311,13 @@ export default function Home() {
                 </tr>)
             })}
 
+<<<<<<< HEAD
           </tbody>
         </table>
       </p>
+=======
+      {/* {true && <CreateMember />} */}
+>>>>>>> backend
       {/* {isMember && <ProposalList />} */}
     </div >
   );

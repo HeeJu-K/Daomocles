@@ -27,7 +27,6 @@ function Navbar(props) {
 
   // const [account, setAccount] = useState("");
 
-  console.log("navbar daoname", daoname)
   useEffect(() => {
     if (daoname == "undefined") {
       setDaoName("")

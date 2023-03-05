@@ -21,6 +21,7 @@ export interface DAOInterface {
   members: Array<string>;
   tokens: Array<TokenInterface>;
   treasuryAddress: string;
+  daomoclesAddress: string;
 }
 
 export interface DAOBriefInterface {
@@ -47,8 +48,9 @@ export interface TableEntryInterface {
   details: string;
   label: string;
   network: string;
-  asset: number;
-  value: number;
+  asset: string;
+  value: string;
   type: string;
   time: string;
+  hash: string;
 }

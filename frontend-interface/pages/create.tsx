@@ -8,10 +8,15 @@ import { ImageUploader } from 'react-image-uploader';
 // import { useData } from "../contexts/dataContext";
 import styles from "../styles/Home.module.css";
 import DAOlogo from "../temp_assets/THUBA_logo.png";
+import axios from 'axios';
+import FormData from 'form-data';
 
 // import FileUpload from "../components/fileUpload";
 
 export default function Home() {
+
+    const [ipfsHash, setIpfsHash] = useState('');
+    const [ipfsAvailable, setIpfsAvailable] = useState(false);
 
     interface DAOBriefInterface {
         logoURL: string;
@@ -76,6 +81,35 @@ export default function Home() {
         setSelectedImage();
     };
 
+    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("ere");
+        const file = event.target.files[0];
+        const hash = await uploadImageToPinata(file);
+        setIpfsHash(hash);
+        setIpfsAvailable(true);
+    };
+
+    const uploadImageToPinata = async (file: File): Promise<string> => {
+        const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+      
+        const data = new FormData();
+        data.append('file', file);
+      
+        console.log(data);
+        const response = await axios.post(url, data, {
+          headers: {
+            'Content-Type': `multipart/form-data`,
+            'pinata_api_key': `${process.env.API_KEY}`,
+            'pinata_secret_api_key': `${process.env.API_SECRET}`,
+            'Authorization': `Bearer ${process.env.JWT}`,
+            // 'Host': 'localhost'
+          },
+        });
+        console.log("response", response);
+      
+        return response.data.IpfsHash;
+      };
+
     // const { isMember, isStakeholder, loading } = useData();
     // if (loading) return <div>Loading...</div>;
     return (
@@ -94,6 +128,7 @@ export default function Home() {
                     <div className={styles.settingsgrid} style={{ gridTemplateColumns: "50% 50%" }}>
                         <div>Upload DAO Logo</div>
                         <div>
+<<<<<<< HEAD
                             <input
                                 accept="image/*"
                                 type="file"
@@ -113,12 +148,24 @@ export default function Home() {
                                     </button>
                                 </div>
                             )}
+=======
+                            <input type="file" accept="image/*" onChange={handleFileUpload} />
+                            {/* {ipfsAvailable && (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                    src={`https://gateway.pinata.cloud/ipfs/${ipfsHash}`}
+                                    alt="Uploaded image"
+                                    width="300"
+                                    height="300"
+                                />
+                            )} */}
+>>>>>>> backend
                         </div>
 
                         <div style={{ marginTop: "8px" }}>DAO Name</div>
                         <input type="text" id="small-input" style={{ marginLeft: "3px" }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></input>
                         <div style={{ marginTop: "8px" }}>Introduction</div>
-                        <textarea id="message" rows="4" style={{ marginLeft: "3px" }} class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+                        <textarea id="message" rows="4" style={{ marginLeft: "3px" }} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
                         <div style={{ marginTop: "8px" }}>Treasury Address</div>
                         <input type="text" id="small-input" style={{ marginLeft: "3px" }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></input>
                     </div>
