@@ -5,6 +5,11 @@ It's the brainchild of a talented team of developers from Tsinghua University Bl
 
 ![image](https://user-images.githubusercontent.com/24932093/222958614-3f163a38-239f-495d-bd3d-1441e85e6c9d.png)
 
+# Smart Contracts
+- [Goerli Testnet Deployed Contracts](https://goerli.etherscan.io/address/0x81eecd719a8cec910d53076441227f5eb4d0ee8d)
+- [Metis Testnet Deployed Contracts](https://goerli.explorer.metisdevops.link/address/0x81EecD719A8CEc910D53076441227F5Eb4d0ee8d/transactions#address-tabs)
+- [Mantle Testnet Deployed Contracts](https://explorer.testnet.mantle.xyz/address/0x8f06151325b84228DAE77218E62b264f7340c921)
+- [Polygon Testnet Deployed Contracts](https://mumbai.polygonscan.com/address/0x8f06151325b84228DAE77218E62b264f7340c921)
 
 # Why we need Daomocles
 As we know, DAOs are designed to be transparent and democratic, but in practice, they can be opaque and exclusive. Without proper tools for financial transparency and accountability, DAOs can become susceptible to corruption and mismanagement. DAOmocles was created to address this problem and provide a solution that promotes transparency and accountability within DAOs.
@@ -49,9 +54,3 @@ Now we have finished smart contract develpment, and end overall Frontend , only 
 
 professional financial management experience. For business, we wish to have  more DAOs experience our product, establish collaborations with different communities, and eventually improve from there! Starting with providing better services for DAOs such as Bitdao、Edudao、thubadao、buidler dao and so on.
 ![image](https://user-images.githubusercontent.com/24932093/222961483-0bc24975-5cf9-432f-b29e-fca12b7bb9ee.png)
-
-# Smart Contracts
-- [Goerli Testnet Deployed Contracts](https://goerli.etherscan.io/address/0x81eecd719a8cec910d53076441227f5eb4d0ee8d)
-- [Metis Testnet Deployed Contracts](https://goerli.explorer.metisdevops.link/address/0x81EecD719A8CEc910D53076441227F5Eb4d0ee8d/transactions#address-tabs)
-- [Mantle Testnet Deployed Contracts](https://explorer.testnet.mantle.xyz/address/0x8f06151325b84228DAE77218E62b264f7340c921)
-- [Polygon Testnet Deployed Contracts](https://mumbai.polygonscan.com/address/0x8f06151325b84228DAE77218E62b264f7340c921)
