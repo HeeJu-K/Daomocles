@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { FormEvent, useState } from "react";
+import axios from 'axios';
+import { FormEvent, useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import SettingNavbar from "../components/settingnavbar";
 import AddToken from "../components/addToken";
@@ -8,14 +9,6 @@ import AddToken from "../components/addToken";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-    interface TokenAssets {
-        network: string;
-        contractAddress: string;
-        tokenName: string;
-    }
-    interface TokenAssetsInterface {
-        assets: Array<TokenAssets>;
-    }
     let daoname = ""
     let daoaccess = ""
     if (typeof window !== "undefined") {
@@ -23,41 +16,72 @@ export default function Home() {
         daoname = queryParameters.get("DAO")
         daoaccess = queryParameters.get("permission")
     }
+    interface TokenInterface {
+        name: string;
+        address: string;
+        network: number;
+        symbol: string;
+        priceURL: string;
+      }
+    // interface TokenAssets {
+    //     network: string;
+    //     contractAddress: string;
+    //     tokenName: string;
+    // }
+    // interface TokenAssetsInterface {
+    //     assets: Array<TokenAssets>;
+    // }
 
-    const tokenAssets: TokenAssetsInterface = {
-        assets: [{
-            network: "Mantle",
-            contractAddress: "0x28y349823948",
-            tokenName: "USDT"
-        },
-        {
-            network: "Mantle",
-            contractAddress: "0x28y349823948",
-            tokenName: "ETH"
-        }]
-    }
+    const [networkId, setNetworkId] = useState(0);
+    const [contractAddress, setContractAddress] = useState("");
+    const [tokenName, setTokenName] = useState("");
+    const [tokenAssets, setTokenAssets] = useState<TokenInterface[]>([])
+
+    // const tokenAssets: TokenAssetsInterface = {
+    //     assets: [{
+    //         network: "Mantle",
+    //         contractAddress: "0x28y349823948",
+    //         tokenName: "USDT"
+    //     },
+    //     {
+    //         network: "Mantle",
+    //         contractAddress: "0x28y349823948",
+    //         tokenName: "ETH"
+    //     }]
+    // }
+
+    useEffect(() => {
+        // Make an asynchronous request to the server using axios with parameters
+        axios.get<TokenInterface[]>(process.env.BASE_URL+':address/:daoID/token' )
+          .then(response => setTokenAssets(response.data))
+          .catch(error => console.error(error));
+        // console.log("")
+      }, []);
+
     const onAddToken = () => {
         console.log("before in  add token function")
-        // return <div className={styles.settingsgrid}>
-        //     <div > Network</div>
-        //     <div > &nbsp;
-        //         <select className="px-3 py-1 bg-gray-50 border border-black rounded-xl text-black" name="Networks" id="networks">
-        //             <option value="Mantle">Mantle</option>
-        //             <option value="Ethereum">Ethereum</option>
-        //             <option value="Polygon">Polygon</option>
-        //         </select>
-        //         &emsp;
-        //     </div>
-        //     <div >Contract Address</div>
-        //     <div >
-        //         <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></input>
-        //     </div>
-        //     <div >Token Name</div>
-        //     <div >Type in address</div>
-        //     <div >
-        //         <div className="divider"></div>
-        //     </div>
-        // </div>
+        // console.log("see url", process.env.BASE_URL+'/0xjisjeif/28938492/token/info')
+        axios.get<TokenInterface[]>('localhost:3001/0xjisjeif/28938492/token/info',  { address: contractAddress, network: networkId, name: "", symbol:tokenName, priceURL:""})
+          .then(response => {response.data})
+          .catch(error => console.error(error));
+    }
+    const handleNetworkChange = (e) => {
+        console.log("assets network", e.target.value)
+        if (e.target.value == "Mantle") {
+            setNetworkId(5000)
+        } else if (e.target.value == "Ethereum") {
+            setNetworkId(1)
+        } else if (e.target.value == "Ethereum") {
+            setNetworkId(137)
+        }
+    }
+    const handleInputChange = (e) => {
+        console.log("assets address", e.target.value)
+        setContractAddress(e.target.value)
+    }
+    const handleTokenName = (e) => {
+        console.log("assets token name", e.target.value)
+        setTokenName(e.target.value)
     }
 
     return (
@@ -77,14 +101,14 @@ export default function Home() {
             />
             <div className={styles.settings} style={{ height: "auto", marginBottom: "3rem" }}>
                 <div className={styles.settingsgrid}>
-                    {tokenAssets.assets.map((item) => {
+                    {tokenAssets.map((item) => {
                         return <>
                             <div > Network</div>
                             <div >{item.network}</div>
                             <div >Contract Address</div>
-                            <div >{item.contractAddress}</div>
+                            <div >{item.address}</div>
                             <div >Token Name</div>
-                            <div >{item.tokenName}</div>
+                            <div >{item.name}</div>
                             <div className="divider" style={{ color: "white" }}></div>
                             <div className="divider"></div>
                         </>
@@ -92,7 +116,11 @@ export default function Home() {
                     <>
                         <div > Network</div>
                         <div > &nbsp;
-                            <select className="px-3 py-2 h-3/1 bg-gray-50 border border-black rounded-xl text-black" name="Networks" id="networks">
+                            <select
+                                className="px-3 py-2 h-3/1 bg-gray-50 border border-black rounded-xl text-black"
+                                name="Networks" id="networks"
+                                onChange={handleNetworkChange}
+                            >
                                 <option value="Mantle">Mantle</option>
                                 <option value="Ethereum">Ethereum</option>
                                 <option value="Polygon">Polygon</option>
@@ -101,10 +129,20 @@ export default function Home() {
                         </div>
                         <div >Contract Address</div>
                         <div >
-                            <input type="text" id="default-input" style={{marginLeft:"3px"}} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"></input>
+                            <input
+                                type="text" id="default-input"
+                                style={{ marginLeft: "3px" }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                                onChange={handleInputChange}
+                            ></input>
                         </div>
                         <div >Token Name</div>
-                        <div style={{ color: "gray" }}>Type in address to see</div>
+                        <div style={{ color: "gray" }}>
+                            <input
+                                type="text" id="default-input"
+                                style={{ marginLeft: "3px" }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500"
+                                onChange={handleTokenName}
+                            ></input>
+                        </div>
                         <div >
                             <div className="divider"></div>
                         </div>
