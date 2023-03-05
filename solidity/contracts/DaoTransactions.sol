@@ -3,8 +3,10 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract daoTransactions is AccessControl  {
+contract DaoTransactions is AccessControl  {
     bytes32 public constant ROLE_ADMIN = keccak256("ROLE_ADMIN");
+    bytes32 public constant ROLE_SUBADMIN = keccak256("ROLE_SUBADMIN");
+    bytes32 public constant ROLE_MEMBER = keccak256("ROLE_MEMBER");
     mapping (uint256 => TransactionDetails) inTransactions;
     mapping (uint256 => TransactionDetails) outTransactions;
     address public treasuryAddress;
@@ -27,7 +29,7 @@ contract daoTransactions is AccessControl  {
         string[] memory labels,
         uint256[] memory txnsHashes, 
         bool isIn
-    ) public {
+    ) public onlyRole(ROLE_ADMIN) {
         require(hasRole(ROLE_ADMIN, msg.sender), "Caller must have user role");
         require(names.length == descriptions.length, "Name and Description Length not equal");
         require(labels.length == descriptions.length, "Name and Description Length not equal");
