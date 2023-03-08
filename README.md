@@ -28,7 +28,7 @@ Overall, DAOmocles is an essential tool for any DAO that wants to promote transp
 
 # key feature
 - Easy-to-use dashboard for managing and tracking treasury funds
-- Financial information disclosure for increased transparency and accountability
+- Financial information disclosure saved on IPFS for increased transparency and accountability
 - Secure and reliable technology built on blockchains
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/24932093/222967709-450218d5-e603-44b6-8f7f-d8a0ff55d0ca.png">
 <img width="863" alt="image" src="https://user-images.githubusercontent.com/24932093/222967730-0f019ef5-67d3-4a04-9795-a4acc866da12.png">
